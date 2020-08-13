@@ -55,7 +55,7 @@
 
             <!-- Heading -->
             <div class="sidebar-heading">
-                My List
+                {{-- My List --}}
             </div>
 
         </ul>

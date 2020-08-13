@@ -1,5 +1,9 @@
 @extends('layouts.master')
 
+@push('style')
+    <script src="//cdn.tinymce.com/4/tinymce.min.js"></script>
+@endpush
+
 @section('content')
 <div class="container-fluid">
     <div class="card" style="color: black">
@@ -18,7 +22,7 @@
             <hr>
             <p class="card-text">Isi komentar pertama <small>Author | Tanggal Komentar</small></p>
             <p class="card-text">Isi komentar kedua <small>Author | Tanggal Komentar</small></p>
-            <a style="color: gray" href="">Tambah Komentar</a>
+            <a style="color: gray" href="#">Tambah Komentar</a>
         </div>
     </div><br>
 
@@ -35,7 +39,7 @@
             <hr>
             <p class="card-text">Isi komentar pertama <small>Author | Tanggal Komentar</small></p>
             <p class="card-text">Isi komentar kedua <small>Author | Tanggal Komentar</small></p>
-            <a style="color: gray" href="">Tambah Komentar</a>
+            <a style="color: gray" href="#">Tambah Komentar</a>
         </div>
     </div><br>
     <div class="card" style="color: black">
@@ -48,8 +52,24 @@
             <hr>
             <p class="card-text">Isi jawaban disini</p>
             <hr>
-            <a style="color: gray" href="">Tambah Komentar</a>
+            <a style="color: gray" href="#">Tambah Komentar</a>
         </div>
+    </div><br>
+
+    <div>
+        <form>
+            @csrf
+            <div class="form-group">
+                <label for="isi">Isi/deskripsi Jawaban</label>
+                <textarea name="isi" id="isi"
+                    class="form-control my-editor">{{-- {!! old('isi', $isi) !!} --}}</textarea>
+            </div>
+            <button type="submit" class="btn btn-primary">Simpan Jawaban</button>
+        </form>
     </div><br>
 </div>
 @endsection
+
+@push('script')
+    <script src="{{ asset('js/tinymce4.js') }}"></script>
+@endpush

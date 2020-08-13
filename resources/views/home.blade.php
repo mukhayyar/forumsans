@@ -4,7 +4,7 @@
 <div class="container-fluid">
     <div class="d-flex justify-content-between">
         <h1>Seluruh Pertanyaan</h1>
-        <a href="/create" >Pertanyaan Baru</a>
+        <a style="color: gray" href="/create" >Pertanyaan Baru</a>
     </div>
     
     <a href="/detail" style="color: black; text-decoration: none">
