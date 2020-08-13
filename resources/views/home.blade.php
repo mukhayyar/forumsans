@@ -2,6 +2,11 @@
 
 @section('content')
 <div class="container-fluid">
+    <div class="d-flex justify-content-between">
+        <h1>Seluruh Pertanyaan</h1>
+        <a href="/create" >Pertanyaan Baru</a>
+    </div>
+    
     <a href="/detail" style="color: black; text-decoration: none">
         <div class="card">
             <div class="card-body">
@@ -9,6 +14,9 @@
                 <h6 class="card-subtitle mb-2 text-muted">Author | Tanggal Pertanyaan</h6>
                 <hr>
                 <p class="card-text">Isi pertanyaan disini</p>
+                <span class="badge badge-pill badge-primary">Tag 1</span>
+                <span class="badge badge-pill badge-primary">Tag 2</span>
+                <span class="badge badge-pill badge-primary">Tag 3</span>
             </div>
         </div>
     </a><br>
@@ -19,6 +27,9 @@
                 <h6 class="card-subtitle mb-2 text-muted">Author | Tanggal Pertanyaan</h6>
                 <hr>
                 <p class="card-text">Isi pertanyaan disini</p>
+                <span class="badge badge-pill badge-primary">Tag 1</span>
+                <span class="badge badge-pill badge-primary">Tag 2</span>
+                <span class="badge badge-pill badge-primary">Tag 3</span>
             </div>
         </div>
     </a><br>
@@ -29,6 +40,9 @@
                 <h6 class="card-subtitle mb-2 text-muted">Author | Tanggal Pertanyaan</h6>
                 <hr>
                 <p class="card-text">Isi pertanyaan disini</p>
+                <span class="badge badge-pill badge-primary">Tag 1</span>
+                <span class="badge badge-pill badge-primary">Tag 2</span>
+                <span class="badge badge-pill badge-primary">Tag 3</span>
             </div>
         </div>
     </a><br>

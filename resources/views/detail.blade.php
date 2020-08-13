@@ -12,6 +12,9 @@
             </h6>
             <hr>
             <p class="card-text">Isi pertanyaan disini</p>
+            <span class="badge badge-pill badge-primary">Tag 1</span>
+            <span class="badge badge-pill badge-primary">Tag 2</span>
+            <span class="badge badge-pill badge-primary">Tag 3</span>
             <hr>
             <p class="card-text">Isi komentar pertama <small>Author | Tanggal Komentar</small></p>
             <p class="card-text">Isi komentar kedua <small>Author | Tanggal Komentar</small></p>
