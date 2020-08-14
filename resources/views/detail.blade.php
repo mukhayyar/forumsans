@@ -6,7 +6,7 @@
 
 @section('content')
 <div class="container-fluid">
-    <div class="card" style="color: black">
+    <div class="card shadow" style="color: black">
         <div class="card-body">
             <h5 class="card-title">Judul 1</h5>
             <h6 class="card-subtitle mb-2 text-muted">
@@ -27,7 +27,7 @@
     </div><br>
 
     <h5 style="color: black"> 2 Jawaban</h5>
-    <div class="card" style="color: black">
+    <div class="card shadow" style="color: black">
         <div class="card-body">
             <h6 class="card-subtitle mb-2 text-muted">
                 Author | Tanggal Jawaban
@@ -42,7 +42,7 @@
             <a style="color: gray" href="#">Tambah Komentar</a>
         </div>
     </div><br>
-    <div class="card" style="color: black">
+    <div class="card shadow" style="color: black">
         <div class="card-body">
             <h6 class="card-subtitle mb-2 text-muted">
                 Author | Tanggal Jawaban

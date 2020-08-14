@@ -23,6 +23,18 @@ Route::get('/create', function () {
     return view('new_question');
 });
 
+Route::get('/tag', function () {
+    return view('tag');
+});
+
+Route::get('/user', function () {
+    return view('users');
+});
+
+Route::get('/user/detail', function () {
+    return view('user_detail');
+});
+
 Auth::routes();
 
 Route::get('/home', 'HomeController@index')->name('home');

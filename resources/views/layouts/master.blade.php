@@ -46,17 +46,29 @@
             <!-- Nav Item - Dashboard -->
             <li class="nav-item">
                 <a class="nav-link" href="/home">
-                    <i class="fas fa-fw fa-tachometer-alt"></i>
+                    <i class="fas fa-question-circle"></i>
                     <span>Pertanyaan</span></a>
             </li>
 
-            <!-- Divider -->
-            <hr class="sidebar-divider">
+            <hr class="sidebar-divider my-0">
 
-            <!-- Heading -->
-            <div class="sidebar-heading">
-                {{-- My List --}}
-            </div>
+            <!-- Nav Item - Dashboard -->
+            <li class="nav-item">
+                <a class="nav-link" href="/tag">
+                    <i class="fas fa-hashtag"></i>
+                    <span>Tags</span></a>
+            </li>
+
+            <hr class="sidebar-divider my-0">
+
+            <!-- Nav Item - Dashboard -->
+            <li class="nav-item">
+                <a class="nav-link" href="/user">
+                    <i class="fas fa-users"></i>
+                    <span>Users</span></a>
+            </li>
+
+            <hr class="sidebar-divider my-0">
 
         </ul>
         <!-- End of Sidebar -->
@@ -92,7 +104,7 @@
                                 </a>
 
                                 <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdown">
-                                    <a class="dropdown-item" href="#">
+                                    <a class="dropdown-item" href="/user/detail">
                                         {{ __('Profile') }}
                                     </a>
                                     <a class="dropdown-item" href="{{ route('logout') }}" onclick="event.preventDefault();
