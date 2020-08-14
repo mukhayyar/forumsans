@@ -36,9 +36,10 @@ class HomeController extends Controller
         return view('users',compact('users'));
     }
 
-    public function showUser()
+    public function showUser(Request $request, User $user)
     {
-
+        $pertanyaan = Pertanyaan::where('user_id',$user->id);
+        return view('user_detail',compact('user','pertanyaan'));
     }
 
     public function tag()

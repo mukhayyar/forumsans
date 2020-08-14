@@ -16,6 +16,14 @@ Route::get('/', function () {
 });
 
 Route::get('/detail/{pertanyaan}', 'PertanyaanController@show');
+Route::post('/detail/{pertanyaan}/jawaban_benar','PertanyaanController@yes');
+
+Route::get('/detail/{pertanyaan}/komentar', 'KomentarPertanyaanController@create');
+Route::post('/detail/{pertanyaan}/komentar', 'KomentarPertanyaanController@store');
+
+Route::get('/detail/{pertanyaan}/komentar/{jawaban}', 'KomentarJawabanController@create');
+Route::post('/detail/{pertanyaan}/komentar/{jawaban}', 'KomentarJawabanController@store');
+
 
 Route::post('/detail/{pertanyaan}/jawaban', 'JawabanController@store');
 
@@ -28,9 +36,7 @@ Route::get('/tag', 'HomeController@tag');
 
 Route::get('/user', 'HomeController@user');
 
-Route::get('/user/detail', function () {
-    return view('user_detail');
-});
+Route::get('/user/detail/{user}', 'HomeController@showUser');
 
 Auth::routes();
 

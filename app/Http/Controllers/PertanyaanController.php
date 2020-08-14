@@ -6,34 +6,10 @@ use Illuminate\Http\Request;
 use App\Pertanyaan;
 use App\Tag;
 use App\PertanyaanTag;
+use App\Jawaban;
 
 class PertanyaanController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function index()
-    {
-        //
-    }
-
-    /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function create()
-    {
-    }
-
-    /**
-     * Store a newly created resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
-     */
     public function store(Request $request)
     {
         $pertanyaan = new Pertanyaan;
@@ -59,7 +35,8 @@ class PertanyaanController extends Controller
                 array_push($tag_id, $tag->id);
             }
         }
-
+        $user_id = auth()->user()->id;
+        $pertanyaan->tags()->sync($user_id);
         $pertanyaan->tags()->sync($tag_id);
 
         return redirect('/home')->with('sukses', 'Pertanyaan berhasil dibuat');
@@ -77,38 +54,11 @@ class PertanyaanController extends Controller
         return view('detail', compact('pertanyaan'));
     }
 
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function edit(Pertanyaan $pertanyaan)
+    public function yes(Request $request, Pertanyaan $pertanyaan)
     {
-        //
+        $pertanyaan->jawaban_tepat_id = $request->jawaban_tepat;
+        $pertanyaan->update();
+        return redirect("/detail/$pertanyaan->id");
     }
 
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function update(Request $request, Pertanyaan $pertanyaan)
-    {
-        //
-    }
-
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function destroy(Pertanyaan $pertanyaan)
-    {
-        $pertanyaan->destroy(0);
-        return redirect('/home')->with('sukses', 'Pertanyaan berhasil dihapus');
-    }
 }

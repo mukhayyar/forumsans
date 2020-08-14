@@ -1,5 +1,7 @@
 @extends('layouts.master')
-
+@php
+use Illuminate\Support\Str;
+@endphp
 @push('style')
     <style>
         a {
@@ -17,8 +19,8 @@
         <div class="col-sm-5">
             <div class="card shadow">
                 <div class="card-body">
-                    <h5>Beta Tester</h5>
-                    <p class="card-text">Reputasi: 99<br>Bergabung sejak 1 Agustus 1900</p>
+                    <h5>{{$user->name}}</h5>
+                    <p class="card-text">Reputasi: {{$user->checkReputation()}}<br>Bergabung sejak {{date('d M Y', strtotime($user->created_at))}}</p>
                 </div>
             </div>
         </div>
@@ -33,9 +35,9 @@
         <!-- Card Content - Collapse -->
         <div class="collapse show" id="collapseCardTag">
             <div class="card-body">
-                @for($i = 1; $i <= 3; $i++)
-                    <a href="/home"><span class="badge badge-pill badge-primary">Tag 1</span></a>
-                @endfor
+                @foreach($user->pertanyaan->get(0)->tags->take(5) as $tag)
+                    <a href="#"><span class="badge badge-pill badge-primary">{{$tag->title}}</span></a>
+                @endforeach
             </div>
         </div>
     </div><br>
@@ -49,15 +51,15 @@
         <!-- Card Content - Collapse -->
         <div class="collapse show" id="collapseCardPertanyaan">
             <div class="card-body">
-                @for($i = 1; $i <= 2; $i++)
+                @foreach($user->pertanyaan->take(2) as $pertanyaan)
                     <div class="d-flex justify-content-between">
-                        <a href="/detail">
-                            <h6>Pertanyaan 1</h6>
+                        <a href="/detail/{{$pertanyaan->id}}">
+                            <h6>{{$pertanyaan->judul}}</h6>
                         </a>
-                        <small>1 Jan 1990</small>
+                        <small>{{date('d M Y', strtotime($pertanyaan->created_at))}}</small>
                     </div>
                     <hr>
-                @endfor
+                @endforeach
             </div>
         </div>
     </div><br>
@@ -71,15 +73,15 @@
         <!-- Card Content - Collapse -->
         <div class="collapse show" id="collapseCardJawaban">
             <div class="card-body">
-                @for($i = 1; $i <= 2; $i++)
+                @foreach($user->jawaban->take(2) as $jawaban)
                     <div class="d-flex justify-content-between">
-                        <a href="/detail">
-                            <h6>Pertanyaan 1</h6>
+                        <a href="/detail/{{$pertanyaan->id}}">
+                            <h6>{!!Str::limit($jawaban->isi, 50, ' (...)')!!}</h6>
                         </a>
-                        <small>1 Jan 1990</small>
+                        <small>{{date('d M Y', strtotime($jawaban->created_at))}}</small>
                     </div>
                     <hr>
-                @endfor
+                @endforeach
             </div>
         </div>
     </div>

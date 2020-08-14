@@ -22,7 +22,7 @@
             <div class="col-sm-3">
                 <div class="card shadow">
                     <div class="card-body">
-                        <a href="/user/detail">
+                        <a href="/user/detail/{{$user->id}}">
                             <h5>{{$user->name}}</h5>
                         </a>
                         <hr>
