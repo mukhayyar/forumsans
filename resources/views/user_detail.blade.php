@@ -18,7 +18,7 @@
             <div class="card shadow">
                 <div class="card-body">
                     <h5>Beta Tester</h5>
-                    <p class="card-text">Reputasi: 99</p>
+                    <p class="card-text">Reputasi: 99<br>Bergabung sejak 1 Agustus 1900</p>
                 </div>
             </div>
         </div>
@@ -50,9 +50,12 @@
         <div class="collapse show" id="collapseCardPertanyaan">
             <div class="card-body">
                 @for($i = 1; $i <= 2; $i++)
-                    <a href="/detail">
-                        <h6>Pertanyaan 1</h6>
-                    </a>
+                    <div class="d-flex justify-content-between">
+                        <a href="/detail">
+                            <h6>Pertanyaan 1</h6>
+                        </a>
+                        <small>1 Jan 1990</small>
+                    </div>
                     <hr>
                 @endfor
             </div>
@@ -69,9 +72,12 @@
         <div class="collapse show" id="collapseCardJawaban">
             <div class="card-body">
                 @for($i = 1; $i <= 2; $i++)
-                    <a href="/detail">
-                        <h6>Pertanyaan 1</h6>
-                    </a>
+                    <div class="d-flex justify-content-between">
+                        <a href="/detail">
+                            <h6>Pertanyaan 1</h6>
+                        </a>
+                        <small>1 Jan 1990</small>
+                    </div>
                     <hr>
                 @endfor
             </div>
