@@ -6,7 +6,7 @@
 
 @section('content')
 <div class="container-fluid">
-    <div class="card" style="color: black">
+    <div class="card shadow" style="color: black">
         <div class="card-body">
             <h5 class="card-title">{{$pertanyaan->judul}}</h5>
             <h6 class="card-subtitle mb-2 text-muted">
@@ -28,8 +28,12 @@
     </div><br>
 
     <h5 style="color: black"> 2 Jawaban</h5>
+<<<<<<< HEAD
     @foreach($pertanyaan->jawaban as $jawaban)
     <div class="card" style="color: black">
+=======
+    <div class="card shadow" style="color: black">
+>>>>>>> 21aafdb8322934be0846108e2dc031c8e96e0a98
         <div class="card-body">
             <h6 class="card-subtitle mb-2 text-muted">
                 {{$jawaban->user->name}} | {{$jawaban->created_at}}
@@ -45,7 +49,24 @@
             <a style="color: gray" href="#">Tambah Komentar</a>
         </div>
     </div><br>
+<<<<<<< HEAD
     @endforeach
+=======
+    <div class="card shadow" style="color: black">
+        <div class="card-body">
+            <h6 class="card-subtitle mb-2 text-muted">
+                Author | Tanggal Jawaban
+                | <a href="#"><i class="fas fa-thumbs-up"></i> (100)</a>
+                <a href="#"><i class="fas fa-thumbs-down"></i> (10)</a>
+            </h6>
+            <hr>
+            <p class="card-text">Isi jawaban disini</p>
+            <hr>
+            <a style="color: gray" href="#">Tambah Komentar</a>
+        </div>
+    </div><br>
+
+>>>>>>> 21aafdb8322934be0846108e2dc031c8e96e0a98
     <div>
         <form>
             @csrf
