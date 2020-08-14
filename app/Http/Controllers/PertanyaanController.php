@@ -26,8 +26,6 @@ class PertanyaanController extends Controller
      */
     public function create()
     {
-
-
     }
 
     /**
@@ -44,15 +42,21 @@ class PertanyaanController extends Controller
         $pertanyaan->user_id = auth()->user()->id;
         $pertanyaan->save();
 
-        $tag = new Tag;
-        $tag->title = $request->tag;
-        $tag->save();
+        $arr = explode('#', $request->tag);
+        unset($arr[0]);
+        $arr = array_values($arr);
 
-        $pertanyaan_tag = new PertanyaanTag;
-        $pertanyaan_tag->pertanyaan_id = $pertanyaan->id;
-        $pertanyaan_tag->tag_id = $tag->id;
-        $pertanyaan_tag->save();
-        return redirect('/home')->with('sukses','Pertanyaan berhasil dibuat');
+        for ($i = 0; $i < count($arr); $i++) {
+            $tag = new Tag;
+            $tag->title = $arr[$i];
+            $tag->save();
+
+            $pertanyaan_tag = new PertanyaanTag;
+            $pertanyaan_tag->pertanyaan_id = $pertanyaan->id;
+            $pertanyaan_tag->tag_id = $tag->id;
+            $pertanyaan_tag->save();
+        }
+        return redirect('/home')->with('sukses', 'Pertanyaan berhasil dibuat');
     }
 
     /**
@@ -64,7 +68,7 @@ class PertanyaanController extends Controller
     public function show(Pertanyaan $pertanyaan)
     {
         // dd($pertanyaan);
-        return view('detail',compact('pertanyaan'));
+        return view('detail', compact('pertanyaan'));
     }
 
     /**
@@ -98,7 +102,7 @@ class PertanyaanController extends Controller
      */
     public function destroy(Pertanyaan $pertanyaan)
     {
-        $pertanyaan->destroy();
-        return redirect('/home')->with('sukses','Pertanyaan berhasil dihapus');
+        $pertanyaan->destroy(0);
+        return redirect('/home')->with('sukses', 'Pertanyaan berhasil dihapus');
     }
 }
