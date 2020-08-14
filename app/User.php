@@ -5,6 +5,10 @@ namespace App;
 use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
+use App\Pertanyaan;
+use App\KomentarPertanyaan;
+use App\Jawaban;
+use App\KomentarJawaban;
 
 class User extends Authenticatable
 {
@@ -36,4 +40,24 @@ class User extends Authenticatable
     protected $casts = [
         'email_verified_at' => 'datetime',
     ];
+
+    public function pertanyaan()
+    {
+        return $this->hasMany(Pertanyaan::class);
+    }
+
+    public function komentar_pertanyaan()
+    {
+        return $this->hasMany(KomentarPertanyaan::class);
+    }
+
+    public function jawaban()
+    {
+        return $this->hasMany(Jawaban::class);
+    }
+
+    public function komentar_jawaban()
+    {
+        return $this->hasMany(KomentarJawaban::class);
+    }
 }

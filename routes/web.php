@@ -15,13 +15,12 @@ Route::get('/', function () {
     return view('welcome');
 });
 
-Route::get('/detail', function () {
-    return view('detail');
-});
+Route::get('/detail/{pertanyaan}', 'PertanyaanController@show');
 
 Route::get('/create', function () {
     return view('new_question');
 });
+
 
 Auth::routes();
 

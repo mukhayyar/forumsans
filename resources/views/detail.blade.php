@@ -8,54 +8,44 @@
 <div class="container-fluid">
     <div class="card" style="color: black">
         <div class="card-body">
-            <h5 class="card-title">Judul 1</h5>
+            <h5 class="card-title">{{$pertanyaan->judul}}</h5>
             <h6 class="card-subtitle mb-2 text-muted">
-                Author | Tanggal Pertanyaan
-                | <a href="#"><i class="fas fa-thumbs-up"></i> (100)</a>
-                <a href="#"><i class="fas fa-thumbs-down"></i> (10)</a>
+            {{$pertanyaan->user->name}} | {{$pertanyaan->created_at}}
+                | <a href="#"><i class="fas fa-thumbs-up"></i> ({{$pertanyaan->up}})</a>
+                <a href="#"><i class="fas fa-thumbs-down"></i> ({{$pertanyaan->down}})</a>
             </h6>
             <hr>
-            <p class="card-text">Isi pertanyaan disini</p>
+            <p class="card-text">{{$pertanyaan->isi}}</p>
             <span class="badge badge-pill badge-primary">Tag 1</span>
             <span class="badge badge-pill badge-primary">Tag 2</span>
             <span class="badge badge-pill badge-primary">Tag 3</span>
             <hr>
-            <p class="card-text">Isi komentar pertama <small>Author | Tanggal Komentar</small></p>
-            <p class="card-text">Isi komentar kedua <small>Author | Tanggal Komentar</small></p>
+            @foreach($pertanyaan->komentar as $komentar)
+            <p class="card-text">{{$komentar->isi}} <small>{{$komentar->user->name}} | {{$komentar->created_at}}</small></p>
+            @endforeach
             <a style="color: gray" href="#">Tambah Komentar</a>
         </div>
     </div><br>
 
     <h5 style="color: black"> 2 Jawaban</h5>
+    @foreach($pertanyaan->jawaban as $jawaban)
     <div class="card" style="color: black">
         <div class="card-body">
             <h6 class="card-subtitle mb-2 text-muted">
-                Author | Tanggal Jawaban
-                | <a href="#"><i class="fas fa-thumbs-up"></i> (100)</a>
-                <a href="#"><i class="fas fa-thumbs-down"></i> (10)</a>
+                {{$jawaban->user->name}} | {{$jawaban->created_at}}
+                | <a href="#"><i class="fas fa-thumbs-up"></i> ({{$jawaban->up}})</a>
+                <a href="#"><i class="fas fa-thumbs-down"></i> ({{$jawaban->down}})</a>
             </h6>
             <hr>
-            <p class="card-text">Isi jawaban disini</p>
+            <p class="card-text">{{$jawaban->isi}}</p>
             <hr>
-            <p class="card-text">Isi komentar pertama <small>Author | Tanggal Komentar</small></p>
-            <p class="card-text">Isi komentar kedua <small>Author | Tanggal Komentar</small></p>
+            @foreach($pertanyaan->jawaban->get(0)->komentar as $komentar_jawaban)
+            <p class="card-text">{{$komentar_jawaban->isi}} <small>{{$komentar_jawaban->user->name}} | {{$komentar_jawaban->created_at}}</small></p>
+            @endforeach
             <a style="color: gray" href="#">Tambah Komentar</a>
         </div>
     </div><br>
-    <div class="card" style="color: black">
-        <div class="card-body">
-            <h6 class="card-subtitle mb-2 text-muted">
-                Author | Tanggal Jawaban
-                | <a href="#"><i class="fas fa-thumbs-up"></i> (100)</a>
-                <a href="#"><i class="fas fa-thumbs-down"></i> (10)</a>
-            </h6>
-            <hr>
-            <p class="card-text">Isi jawaban disini</p>
-            <hr>
-            <a style="color: gray" href="#">Tambah Komentar</a>
-        </div>
-    </div><br>
-
+    @endforeach
     <div>
         <form>
             @csrf
