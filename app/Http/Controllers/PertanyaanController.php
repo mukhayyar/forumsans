@@ -42,20 +42,26 @@ class PertanyaanController extends Controller
         $pertanyaan->user_id = auth()->user()->id;
         $pertanyaan->save();
 
-        $arr = explode('#', $request->tag);
-        unset($arr[0]);
-        $arr = array_values($arr);
+        $tag_arr = explode('#', $request->tag);
+        unset($tag_arr[0]);
+        $tag_arr = array_values($tag_arr);
 
-        for ($i = 0; $i < count($arr); $i++) {
-            $tag = new Tag;
-            $tag->title = $arr[$i];
-            $tag->save();
+        $tag_id = array();
 
-            $pertanyaan_tag = new PertanyaanTag;
-            $pertanyaan_tag->pertanyaan_id = $pertanyaan->id;
-            $pertanyaan_tag->tag_id = $tag->id;
-            $pertanyaan_tag->save();
+        foreach ($tag_arr as $tag_name) {
+            $compare_tag = Tag::where('title', $tag_name)->first();
+            if ($compare_tag) {
+                array_push($tag_id, $compare_tag->id);
+            } else {
+                $tag = new Tag;
+                $tag->title = $tag_name;
+                $tag->save();
+                array_push($tag_id, $tag->id);
+            }
         }
+
+        $pertanyaan->tags()->sync($tag_id);
+
         return redirect('/home')->with('sukses', 'Pertanyaan berhasil dibuat');
     }
 
