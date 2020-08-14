@@ -17,17 +17,16 @@ Route::get('/', function () {
 
 Route::get('/detail/{pertanyaan}', 'PertanyaanController@show');
 
+Route::post('/detail/{pertanyaan}/jawaban', 'JawabanController@store');
+
 Route::get('/create', function () {
     return view('new_question');
 });
+Route::post('/create', 'PertanyaanController@store');
 
-Route::get('/tag', function () {
-    return view('tag');
-});
+Route::get('/tag', 'HomeController@tag');
 
-Route::get('/user', function () {
-    return view('users');
-});
+Route::get('/user', 'HomeController@user');
 
 Route::get('/user/detail', function () {
     return view('user_detail');

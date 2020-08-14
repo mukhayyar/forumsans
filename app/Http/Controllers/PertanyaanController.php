@@ -4,6 +4,8 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Pertanyaan;
+use App\Tag;
+use App\PertanyaanTag;
 
 class PertanyaanController extends Controller
 {
@@ -42,6 +44,14 @@ class PertanyaanController extends Controller
         $pertanyaan->user_id = auth()->user()->id;
         $pertanyaan->save();
 
+        $tag = new Tag;
+        $tag->title = $request->tag;
+        $tag->save();
+
+        $pertanyaan_tag = new PertanyaanTag;
+        $pertanyaan_tag->pertanyaan_id = $pertanyaan->id;
+        $pertanyaan_tag->tag_id = $tag->id;
+        $pertanyaan_tag->save();
         return redirect('/home')->with('sukses','Pertanyaan berhasil dibuat');
     }
 

@@ -3,6 +3,8 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use App\Pertanyaan;
+use App\KomentarPertanyaan;
 
 class KomentarPertanyaanController extends Controller
 {
@@ -32,9 +34,15 @@ class KomentarPertanyaanController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(Request $request, Pertanyaan $Pertanyaan)
     {
-        //
+        $komentar = new KomentarPertanyaan;
+        $komentar->isi = $request->isi;
+        $komentar->user_id = auth()->user()->id;
+        $komentar->pertanyaan_id = $pertanyaan->id;
+        $komentar->save();
+
+        return redirect("/detail/$pertanyaan->id");
     }
 
     /**

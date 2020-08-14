@@ -60,4 +60,14 @@ class User extends Authenticatable
     {
         return $this->hasMany(KomentarJawaban::class);
     }
+
+    public function checkReputation()
+    {
+        if ($this->reputation === null or $this->reputation === 0){
+            return 'Point: 0 | Neutral';
+        } else if($this->reputation < 0) {
+            return 'Point: '.$this->reputation. ' | Bad';
+        }
+        return 'Point: '.$this->reputation. ' | Good';
+    }
 }

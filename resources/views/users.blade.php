@@ -18,19 +18,19 @@
     <h1>Seluruh User</h1>
 
     <div class="row">
-        @for($i = 0; $i <= 6; $i++)
+        @foreach($users as $user)
             <div class="col-sm-3">
                 <div class="card shadow">
                     <div class="card-body">
                         <a href="/user/detail">
-                            <h5>Beta Tester</h5>
+                            <h5>{{$user->name}}</h5>
                         </a>
                         <hr>
-                        <p class="card-text">Reputasi: 99</p>
+                        <p class="card-text">{{$user->checkReputation()}}</p>
                     </div>
                 </div>
             </div>
-        @endfor
+        @endforeach
     </div>
 </div>
 @endsection

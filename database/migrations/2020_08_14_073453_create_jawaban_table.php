@@ -16,8 +16,8 @@ class CreateJawabanTable extends Migration
         Schema::create('jawaban', function (Blueprint $table) {
             $table->bigIncrements('id');
             $table->char('isi',255);
-            $table->integer('up')->nullable();
-            $table->integer('down')->nullable();
+            $table->integer('up')->default(0);
+            $table->integer('down')->default(0);
             $table->timestamps();
         });
     }

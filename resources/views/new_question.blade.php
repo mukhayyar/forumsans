@@ -7,7 +7,7 @@
 @section('content')
 <div class="container-fluid">
     <h1>Pertanyaan Baru</h1>
-    <form>
+    <form method="POST" action="/create">
         @csrf
         <div class="form-group">
             <label for="judul">Judul Pertanyaan</label>

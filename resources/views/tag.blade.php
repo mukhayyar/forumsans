@@ -14,17 +14,17 @@
     <h1>Seluruh Tag</h1>
 
     <div class="row">
-        @for($i = 0; $i <= 6; $i++)
+        @foreach($tags as $tag)
             <div class="col-sm-3">
                 <div class="card shadow">
                     <div class="card-body">
-                        <a href="/home"><span class="badge badge-pill badge-primary">Tag 1</span></a>
+                        <a href="/home"><span class="badge badge-pill badge-primary">{{$tag->title}}</span></a>
                         <hr>
-                        <p class="card-text">99 pertanyaan</p>
+                        <p class="card-text">{{$tag->pertanyaan->count()}} Soal</p>
                     </div>
                 </div>
             </div>
-        @endfor
+        @endforeach
     </div>
 </div>
 @endsection
