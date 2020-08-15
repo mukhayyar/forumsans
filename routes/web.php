@@ -40,6 +40,9 @@ Route::get('/user', 'HomeController@user');
 Route::get('/user/detail/{user}', 'HomeController@showUser');
 
 Route::put('/upvote_pertanyaan/{pertanyaan}', 'PertanyaanController@upvote_pertanyaan');
+Route::put('/upvote_jawaban/{jawaban}', 'JawabanController@upvote_jawaban');
+Route::put('/downvote_pertanyaan/{pertanyaan}', 'PertanyaanController@downvote_pertanyaan');
+Route::put('/downvote_jawaban/{jawaban}', 'JawabanController@downvote_jawaban');
 
 Auth::routes();
 

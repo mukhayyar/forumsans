@@ -16,15 +16,28 @@
                     <form action="/upvote_pertanyaan/{{ $pertanyaan->id }}" method="POST" class="form-inline">
                         @csrf
                         @method('put')
-                        <button type="submit" class="btn btn-primary btn-sm"><i class="fas fa-thumbs-up"></i>
-                            ({{ $pertanyaan->up }})</button>
+                        @if(Auth::user()->id === $pertanyaan->user_id)
+                            <button disabled type="submit" class="btn btn-primary btn-sm"><i
+                                    class="fas fa-thumbs-up"></i>
+                                ({{ $pertanyaan->up }})</button>
+                        @else
+                            <button type="submit" class="btn btn-primary btn-sm"><i class="fas fa-thumbs-up"></i>
+                                ({{ $pertanyaan->up }})</button>
+                        @endif
                     </form>
-                    <form action="/downvote_pertanyaan" method="POST" class="form-inline">
+                    <form action="/downvote_pertanyaan/{{ $pertanyaan->id }}" method="POST" class="form-inline">
                         @csrf
                         @method('put')
-                        <button style="margin-left: 1em" type="submit" class="btn btn-primary btn-sm"><i
-                                class="fas fa-thumbs-down"></i>
-                            ({{ $pertanyaan->down }})</button>
+                        @if(Auth::user()->reputation < 15 || Auth::user()->id === $pertanyaan->user_id)
+                            <button disabled style="margin-left: 1em" type="submit" class="btn btn-primary btn-sm"><i
+                                    class="fas fa-thumbs-down"></i>
+                                ({{ $pertanyaan->down }})</button>
+                        @else
+                            <input type="hidden" id="id" name="id" value="{{ Auth::user()->id }}">
+                            <button style="margin-left: 1em" type="submit" class="btn btn-primary btn-sm"><i
+                                    class="fas fa-thumbs-down"></i>
+                                ({{ $pertanyaan->down }})</button>
+                        @endif
                     </form>
                 </div>
             </div>
@@ -38,7 +51,7 @@
                 <p class="card-text">{!!$komentar->isi!!} <small>{{ $komentar->user->name }} |
                         {{ $komentar->created_at }}</small></p>
             @endforeach
-            <a style="color: gray" href="/detail/{{$pertanyaan->id}}/komentar">Tambah Komentar</a>
+            <a style="color: gray" href="/detail/{{ $pertanyaan->id }}/komentar">Tambah Komentar</a>
         </div>
     </div><br>
 
@@ -48,32 +61,46 @@
             <div class="card shadow" style="color: black">
                 <div class="card-body">
                     @if($pertanyaan->user_id === Auth::user()->id)
-                    <form action="/detail/{{$pertanyaan->id}}/jawaban_benar" method="POST">
-                    @csrf
-                        <label for="check">Tandai benar </label>
-                        <input type="checkbox" name="jawaban_tepat" id="check" value="{{$jawaban->id}}">
-                        <input type="submit" value="Submit">
-                    </form>
+                        <form action="/detail/{{ $pertanyaan->id }}/jawaban_benar" method="POST">
+                            @csrf
+                            <label for="check">Tandai benar </label>
+                            <input type="checkbox" name="jawaban_tepat" id="check" value="{{ $jawaban->id }}">
+                            <input type="submit" value="Submit">
+                        </form>
                     @endif
                     @if($jawaban->id === $pertanyaan->jawaban_tepat_id)
-                    <p>Jawaban Benar / Checked</p>
+                        <p>Jawaban Benar / Checked</p>
                     @endif
                     <div class="d-flex justify-content-between">
                         <h6 class="card-subtitle mb-2 text-muted">{{ $jawaban->user->name }} |
                             <small>{{ $jawaban->created_at }}</small></h6>
                         <div class="d-flex justify-content-end">
-                            <form action="/upvote_jawaban" method="POST" class="form-inline">
+                            <form action="/upvote_jawaban/{{ $jawaban->id }}" method="POST" class="form-inline">
                                 @csrf
                                 @method('put')
-                                <button type="submit" class="btn btn-primary btn-sm"><i class="fas fa-thumbs-up"></i>
-                                    ({{ $jawaban->up }})</button>
+                                @if(Auth::user()->id === $jawaban->user_id)
+                                    <button disabled type="submit" class="btn btn-primary btn-sm"><i
+                                            class="fas fa-thumbs-up"></i>
+                                        ({{ $jawaban->up }})</button>
+                                @else
+                                    <button type="submit" class="btn btn-primary btn-sm"><i
+                                            class="fas fa-thumbs-up"></i>
+                                        ({{ $jawaban->up }})</button>
+                                @endif
                             </form>
-                            <form action="/downvote_jawaban" method="POST" class="form-inline">
+                            <form action="/downvote_jawaban/{{ $jawaban->id }}" method="POST" class="form-inline">
                                 @csrf
                                 @method('put')
-                                <button style="margin-left: 1em" type="submit" class="btn btn-primary btn-sm"><i
-                                        class="fas fa-thumbs-down"></i>
-                                    ({{ $jawaban->down }})</button>
+                                @if(Auth::user()->reputation < 15 || Auth::user()->id === $jawaban->user_id)
+                                    <button disabled style="margin-left: 1em" type="submit"
+                                        class="btn btn-primary btn-sm"><i class="fas fa-thumbs-down"></i>
+                                        ({{ $jawaban->down }})</button>
+                                @else
+                                    <input type="hidden" id="id" name="id" value="{{ Auth::user()->id }}">
+                                    <button style="margin-left: 1em" type="submit" class="btn btn-primary btn-sm"><i
+                                            class="fas fa-thumbs-down"></i>
+                                        ({{ $jawaban->down }})</button>
+                                @endif
                             </form>
                         </div>
                     </div>
@@ -84,7 +111,8 @@
                         <p class="card-text">{!!$komentar_jawaban->isi!!} <small>{{ $komentar_jawaban->user->name }}
                                 | {{ $komentar_jawaban->created_at }}</small></p>
                     @endforeach
-                    <a style="color: gray" href="/detail/{{$pertanyaan->id}}/komentar/{{$jawaban->id}}">Tambah Komentar</a>
+                    <a style="color: gray" href="/detail/{{ $pertanyaan->id }}/komentar/{{ $jawaban->id }}">Tambah
+                        Komentar</a>
                 </div>
             </div>
         </div><br>

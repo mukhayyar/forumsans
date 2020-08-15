@@ -1,6 +1,6 @@
 @extends('layouts.master')
 @php
-use Illuminate\Support\Str;
+    use Illuminate\Support\Str;
 @endphp
 @push('style')
     <style>
@@ -19,8 +19,9 @@ use Illuminate\Support\Str;
         <div class="col-sm-5">
             <div class="card shadow">
                 <div class="card-body">
-                    <h5>{{$user->name}}</h5>
-                    <p class="card-text">Reputasi: {{$user->checkReputation()}}<br>Bergabung sejak {{date('d M Y', strtotime($user->created_at))}}</p>
+                    <h5>{{ $user->name }}</h5>
+                    <p class="card-text">Reputasi: {{ $user->checkReputation() }}<br>Bergabung sejak
+                        {{ date('d M Y', strtotime($user->created_at)) }}</p>
                 </div>
             </div>
         </div>
@@ -35,9 +36,13 @@ use Illuminate\Support\Str;
         <!-- Card Content - Collapse -->
         <div class="collapse show" id="collapseCardTag">
             <div class="card-body">
-                @foreach($user->pertanyaan->get(0)->tags->take(5) as $tag)
-                    <a href="#"><span class="badge badge-pill badge-primary">{{$tag->title}}</span></a>
-                @endforeach
+                @if($user->pertanyaan->get(0))
+                    @foreach($user->pertanyaan->get(0)->tags->take(9) as $tag)
+                        <a href="#"><span class="badge badge-pill badge-primary">{{ $tag->title }}</span></a>
+                    @endforeach
+                @else
+                    <p>Tidak ada data</p>
+                @endif
             </div>
         </div>
     </div><br>
@@ -51,15 +56,19 @@ use Illuminate\Support\Str;
         <!-- Card Content - Collapse -->
         <div class="collapse show" id="collapseCardPertanyaan">
             <div class="card-body">
-                @foreach($user->pertanyaan->take(2) as $pertanyaan)
-                    <div class="d-flex justify-content-between">
-                        <a href="/detail/{{$pertanyaan->id}}">
-                            <h6>{{$pertanyaan->judul}}</h6>
-                        </a>
-                        <small>{{date('d M Y', strtotime($pertanyaan->created_at))}}</small>
-                    </div>
-                    <hr>
-                @endforeach
+                @if($user->pertanyaan->get(0))
+                    @foreach($user->pertanyaan->take(5) as $pertanyaan)
+                        <div class="d-flex justify-content-between">
+                            <a href="/detail/{{ $pertanyaan->id }}">
+                                <h6>{{ $pertanyaan->judul }}</h6>
+                            </a>
+                            <small>{{ date('d M Y', strtotime($pertanyaan->created_at)) }}</small>
+                        </div>
+                        <hr>
+                    @endforeach
+                @else
+                    <p>Tidak ada data</p>
+                @endif
             </div>
         </div>
     </div><br>
@@ -73,15 +82,19 @@ use Illuminate\Support\Str;
         <!-- Card Content - Collapse -->
         <div class="collapse show" id="collapseCardJawaban">
             <div class="card-body">
-                @foreach($user->jawaban->take(2) as $jawaban)
-                    <div class="d-flex justify-content-between">
-                        <a href="/detail/{{$pertanyaan->id}}">
-                            <h6>{!!Str::limit($jawaban->isi, 50, ' (...)')!!}</h6>
-                        </a>
-                        <small>{{date('d M Y', strtotime($jawaban->created_at))}}</small>
-                    </div>
-                    <hr>
-                @endforeach
+                @if($user->jawaban->get(0))
+                    @foreach($user->jawaban->take(5) as $jawaban)
+                        <div class="d-flex justify-content-between">
+                            <a href="/detail/{{ $jawaban->pertanyaan_id }}">
+                                <h6>{!!Str::limit($jawaban->isi, 50, ' (...)')!!}</h6>
+                            </a>
+                            <small>{{ date('d M Y', strtotime($jawaban->created_at)) }}</small>
+                        </div>
+                        <hr>
+                    @endforeach
+                @else
+                    <p>Tidak ada data</p>
+                @endif
             </div>
         </div>
     </div>

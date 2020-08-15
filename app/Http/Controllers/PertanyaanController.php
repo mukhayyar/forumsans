@@ -97,4 +97,18 @@ class PertanyaanController extends Controller
 
         return redirect()->route('detail', ['pertanyaan' => $pertanyaan->id]);
     }
+
+    public function downvote_pertanyaan(Request $request, Pertanyaan $pertanyaan)
+    {
+        $detail_pertanyaan = Pertanyaan::find($pertanyaan->id);
+
+        $detail_pertanyaan->down += 1;
+        $detail_pertanyaan->save();
+
+        $user = User::find($request->id);
+        $user->reputation -= 1;
+        $user->save();
+
+        return redirect()->route('detail', ['pertanyaan' => $pertanyaan->id]);
+    }
 }
