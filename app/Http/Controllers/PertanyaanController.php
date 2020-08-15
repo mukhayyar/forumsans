@@ -5,7 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Pertanyaan;
 use App\Tag;
-use App\PertanyaanTag;
+use App\User;
 
 class PertanyaanController extends Controller
 {
@@ -110,5 +110,19 @@ class PertanyaanController extends Controller
     {
         $pertanyaan->destroy(0);
         return redirect('/home')->with('sukses', 'Pertanyaan berhasil dihapus');
+    }
+
+    public function upvote_pertanyaan(Pertanyaan $pertanyaan)
+    {
+        $detail_pertanyaan = Pertanyaan::find($pertanyaan->id);
+
+        $detail_pertanyaan->up += 1;
+        $detail_pertanyaan->save();
+
+        $user = User::find($detail_pertanyaan->user_id);
+        $user->reputation += 10;
+        $user->save();
+
+        return redirect()->route('detail', ['pertanyaan' => $pertanyaan->id]);
     }
 }

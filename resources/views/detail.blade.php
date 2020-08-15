@@ -9,11 +9,25 @@
     <div class="card shadow" style="color: black">
         <div class="card-body">
             <h5 class="card-title">{{ $pertanyaan->judul }}</h5>
-            <h6 class="card-subtitle mb-2 text-muted">
-                {{ $pertanyaan->user->name }} | <small>{{ $pertanyaan->created_at }}</small>
-                <a href="#"><i class="fas fa-thumbs-up"></i> ({{ $pertanyaan->up }})</a>
-                <a href="#"><i class="fas fa-thumbs-down"></i> ({{ $pertanyaan->down }})</a>
-            </h6>
+            <div class="d-flex justify-content-between">
+                <h6 class="card-subtitle mb-2 text-muted">{{ $pertanyaan->user->name }} |
+                    <small>{{ $pertanyaan->created_at }}</small></h6>
+                <div class="d-flex justify-content-end">
+                    <form action="/upvote_pertanyaan/{{ $pertanyaan->id }}" method="POST" class="form-inline">
+                        @csrf
+                        @method('put')
+                        <button type="submit" class="btn btn-primary btn-sm"><i class="fas fa-thumbs-up"></i>
+                            ({{ $pertanyaan->up }})</button>
+                    </form>
+                    <form action="/downvote_pertanyaan" method="POST" class="form-inline">
+                        @csrf
+                        @method('put')
+                        <button style="margin-left: 1em" type="submit" class="btn btn-primary btn-sm"><i
+                                class="fas fa-thumbs-down"></i>
+                            ({{ $pertanyaan->down }})</button>
+                    </form>
+                </div>
+            </div>
             <hr>
             <p class="card-text">{!!$pertanyaan->isi!!}</p>
             @foreach($pertanyaan->tags as $tag)
@@ -36,11 +50,25 @@
                     @if($pertanyaan->user_id === Auth::user()->id)
                         <p>Jawaban Tepat // checked</p>
                     @endif
-                    <h6 class="card-subtitle mb-2 text-muted">
-                        {{ $jawaban->user->name }} | <small>{{ $jawaban->created_at }}</small>
-                        <a href="#"><i class="fas fa-thumbs-up"></i> ({{ $jawaban->up }})</a>
-                        <a href="#"><i class="fas fa-thumbs-down"></i> ({{ $jawaban->down }})</a>
-                    </h6>
+                    <div class="d-flex justify-content-between">
+                        <h6 class="card-subtitle mb-2 text-muted">{{ $jawaban->user->name }} |
+                            <small>{{ $jawaban->created_at }}</small></h6>
+                        <div class="d-flex justify-content-end">
+                            <form action="/upvote_jawaban" method="POST" class="form-inline">
+                                @csrf
+                                @method('put')
+                                <button type="submit" class="btn btn-primary btn-sm"><i class="fas fa-thumbs-up"></i>
+                                    ({{ $jawaban->up }})</button>
+                            </form>
+                            <form action="/downvote_jawaban" method="POST" class="form-inline">
+                                @csrf
+                                @method('put')
+                                <button style="margin-left: 1em" type="submit" class="btn btn-primary btn-sm"><i
+                                        class="fas fa-thumbs-down"></i>
+                                    ({{ $jawaban->down }})</button>
+                            </form>
+                        </div>
+                    </div>
                     <hr>
                     <p class="card-text">{!!$jawaban->isi!!}</p>
                     <hr>
