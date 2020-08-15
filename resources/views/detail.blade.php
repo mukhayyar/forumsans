@@ -69,6 +69,7 @@
                             @csrf
                             <label for="">Tandai benar </label>
                             <input type="checkbox" name="jawaban_tepat" id="check" value="{{ $jawaban->id }}">
+                            <input type="hidden" id="id" name="id" value="{{ $jawaban->user_id }}">
                             <input type="submit" value="Submit">
                         </form>
                     @endif
