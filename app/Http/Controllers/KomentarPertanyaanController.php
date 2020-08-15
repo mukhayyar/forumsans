@@ -15,13 +15,16 @@ class KomentarPertanyaanController extends Controller
 
     public function store(Request $request, Pertanyaan $pertanyaan)
     {
+        $request->validate([
+            'isi' => 'required'
+        ]);
         $komentar = new KomentarPertanyaan;
         $komentar->isi = $request->isi;
         $komentar->user_id = auth()->user()->id;
         $komentar->pertanyaan_id = $pertanyaan->id;
         $komentar->save();
 
-        return redirect("/detail/$pertanyaan->id");
+        return redirect("/detail/$pertanyaan->id")->with('sukses', 'Komentar berhasil disampaikan');
     }
 
 }

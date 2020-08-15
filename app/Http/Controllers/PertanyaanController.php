@@ -7,13 +7,16 @@ use App\Pertanyaan;
 use App\Tag;
 use App\User;
 use App\VotePertanyaan;
-use App\VoteJawaban;
-use Illuminate\Support\Facades\DB;
 
 class PertanyaanController extends Controller
 {
     public function store(Request $request)
     {
+        $request->validate([
+            'judul' => 'required',
+            'isi' => 'required',
+            'tag' => 'required|starts_with:#|required_without:‎ ‎'
+        ]);
         $pertanyaan = new Pertanyaan;
         $pertanyaan->judul = $request->judul;
         $pertanyaan->isi = $request->isi;
@@ -52,7 +55,6 @@ class PertanyaanController extends Controller
      */
     public function show(Pertanyaan $pertanyaan)
     {
-
         return view('detail', compact('pertanyaan'));
     }
 
@@ -61,64 +63,68 @@ class PertanyaanController extends Controller
         $pertanyaan->jawaban_tepat_id = $request->jawaban_tepat;
         $pertanyaan->update();
 
-        $user = User::find($pertanyaan->user_id);
+        $user = User::find($pertanyaan->jawaban->user_id);
         $user->reputation += 15;
         $user->save();
 
         return redirect("/detail/$pertanyaan->id");
     }
 
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function update(Request $request, Pertanyaan $pertanyaan)
-    {
-        //
-    }
-
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function destroy(Pertanyaan $pertanyaan)
-    {
-        $pertanyaan->destroy(0);
-        return redirect('/home')->with('sukses', 'Pertanyaan berhasil dihapus');
-    }
-
     public function upvote_pertanyaan(Pertanyaan $pertanyaan)
     {
-        $vote = new VotePertanyaan;
-        $vote->user_id = auth()->user()->id;
-        $vote->pertanyaan_id = $pertanyaan->id;
-        $vote->up += 1;
-        $vote->save();
+        $is_upvote = VotePertanyaan::where('user_id', auth()->user()->id)->where('pertanyaan_id', $pertanyaan->id)->first();
+        if ($is_upvote && $is_upvote->up == 1) {
+            return redirect()->route('detail', ['pertanyaan' => $pertanyaan->id]);
+        } else if ($is_upvote && $is_upvote->up == 0) {
+            VotePertanyaan::where('user_id', auth()->user()->id)->where('pertanyaan_id', $pertanyaan->id)->update([
+                'down' => $is_upvote->down -= 1,
+                'up' => $is_upvote->up += 1
+            ]);
+
+            $user = User::find(auth()->user()->id);
+            $user->reputation += 1;
+            $user->save();
+        } else {
+            $vote = new VotePertanyaan;
+            $vote->user_id = auth()->user()->id;
+            $vote->pertanyaan_id = $pertanyaan->id;
+            $vote->up += 1;
+            $vote->save();
+        }
 
         $user = User::find($pertanyaan->user_id);
         $user->reputation += 10;
         $user->save();
 
-        return redirect()->route('detail', ['pertanyaan' => $pertanyaan->id]);
+        return redirect()->route('detail', ['pertanyaan' => $pertanyaan->id])->with('sukses', 'Pertanyaan berhasil dibuat');
     }
 
     public function downvote_pertanyaan(Request $request, Pertanyaan $pertanyaan)
     {
-        $vote = new VotePertanyaan;
-        $vote->user_id = auth()->user()->id;
-        $vote->pertanyaan_id = $pertanyaan->id;
-        $vote->down += 1;
-        $vote->save();
+        $is_downvote = VotePertanyaan::where('user_id', auth()->user()->id)->where('pertanyaan_id', $pertanyaan->id)->first();
+        if ($is_downvote && $is_downvote->down == 1) {
+            return redirect()->route('detail', ['pertanyaan' => $pertanyaan->id]);
+        } else if ($is_downvote && $is_downvote->down == 0) {
+            VotePertanyaan::where('user_id', auth()->user()->id)->where('pertanyaan_id', $pertanyaan->id)->update([
+                'down' => $is_downvote->down += 1,
+                'up' => $is_downvote->up -= 1
+            ]);
+
+            $user = User::find($pertanyaan->user_id);
+            $user->reputation -= 10;
+            $user->save();
+        } else {
+            $vote = new VotePertanyaan;
+            $vote->user_id = auth()->user()->id;
+            $vote->pertanyaan_id = $pertanyaan->id;
+            $vote->down += 1;
+            $vote->save();
+        }
 
         $user = User::find($request->id);
         $user->reputation -= 1;
         $user->save();
 
-        return redirect()->route('detail', ['pertanyaan' => $pertanyaan->id]);
+        return redirect()->route('detail', ['pertanyaan' => $pertanyaan->id])->with('sukses', 'Pertanyaan berhasil dibuat');
     }
 }
