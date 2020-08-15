@@ -158,22 +158,10 @@
 
     <!-- Bootstrap core JavaScript-->
     <script src="{{ secure_asset('sbadmin2/vendor/jquery/jquery.js') }}"></script>
-    <script src="{{ secure_asset('sbadmin2/vendor/bootstrap/js/bootstrap.bundle.min.js') }}">
-    </script>
-
-    <!-- Core plugin JavaScript-->
-    <script
-        src="{{ secure_asset('vendor/jquery-easing/jquery.easing.min.jsvendor/jquery-easing/jquery.easing.min.js') }}">
-    </script>
-
-    <!-- Custom scripts for all pages-->
-    <script src="{{ secure_asset('vendor/js/sb-admin-2.min.js') }}"></script>
+    <script src="{{ secure_asset('sbadmin2/vendor/bootstrap/js/bootstrap.bundle.min.js') }}"></script>
 
     <!-- script tambahan sweet alert, bukan dari bawaan sb-admin-2 -->
     @stack('script')
-
-    <script src="{{ secure_asset('vendor/js/swal.min.js') }}"></script>
-
 </body>
 
 </html>
