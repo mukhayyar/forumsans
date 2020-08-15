@@ -6,6 +6,7 @@
         <h1>Seluruh Pertanyaan</h1>
         <a style="color: gray" href="/create">Pertanyaan Baru</a>
     </div>
+
     @foreach($pertanyaan as $tanya)
         <div class="card">
             <a href="/detail/{{ $tanya->id }}" style="color: black; text-decoration: none">
@@ -24,5 +25,13 @@
             </a>
         </div><br>
     @endforeach
+
+    @if($pertanyaan->get(0)==null)
+        <div class="card shadow">
+            <div class="card-body">
+                <p class="card-text">Tidak ada data</p>
+            </div>
+        </div>
+    @endif
 </div>
 @endsection

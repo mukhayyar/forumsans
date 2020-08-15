@@ -18,13 +18,21 @@
             <div class="col-sm-3">
                 <div class="card shadow">
                     <div class="card-body">
-                        <a href="/home"><span class="badge badge-pill badge-primary">{{$tag->title}}</span></a>
+                        <a href="/home"><span class="badge badge-pill badge-primary">{{ $tag->title }}</span></a>
                         <hr>
-                        <p class="card-text">{{$tag->pertanyaan->count()}} Soal</p>
+                        <p class="card-text">{{ $tag->pertanyaan->count() }} Soal</p>
                     </div>
                 </div>
             </div>
         @endforeach
     </div>
+
+    @if($tags->get(0) == null)
+        <div class="card shadow">
+            <div class="card-body">
+                <p class="card-text">Tidak ada data</p>
+            </div>
+        </div>
+    @endif
 </div>
 @endsection
