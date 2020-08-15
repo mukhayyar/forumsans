@@ -1,5 +1,9 @@
 @extends('layouts.master')
 
+@push('style')
+<link href="{{ secure_asset('sbadmin2/css/sb-admin-2.min.css') }}" rel="stylesheet">
+@endpush
+
 @section('content')
 <div class="container-fluid">
     <div class="d-flex justify-content-between">

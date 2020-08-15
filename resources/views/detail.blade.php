@@ -2,6 +2,7 @@
 
 @push('style')
     <script src="//cdn.tinymce.com/4/tinymce.min.js"></script>
+    <link href="{{ secure_asset('sbadmin2/css/sb-admin-2.min.css') }}" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.css">
 @endpush
 
