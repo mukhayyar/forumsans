@@ -17,9 +17,11 @@
                         @csrf
                         @method('put')
                         @if(Auth::user()->id === $pertanyaan->user_id)
+                        <span class="d-inline-block" tabindex="0" data-toggle="tooltip" title="Kamu tidak diperbolehkan like pertanyaan kamu">
                             <button disabled type="submit" class="btn btn-primary btn-sm"><i
-                                    class="fas fa-thumbs-up"></i>
-                                ({{ $pertanyaan->up }})</button>
+                                class="fas fa-thumbs-up"></i>
+                            ({{ $pertanyaan->up }})</button>
+                        </span>                            
                         @else
                             <button type="submit" class="btn btn-primary btn-sm"><i class="fas fa-thumbs-up"></i>
                                 ({{ $pertanyaan->up }})</button>
@@ -29,9 +31,11 @@
                         @csrf
                         @method('put')
                         @if(Auth::user()->reputation < 15 || Auth::user()->id === $pertanyaan->user_id)
+                        <span class="d-inline-block" tabindex="0" data-toggle="tooltip" title="Reputasi kamu masih kurang atau ini adalah pertanyaan kamu">
                             <button disabled style="margin-left: 1em" type="submit" class="btn btn-primary btn-sm"><i
-                                    class="fas fa-thumbs-down"></i>
-                                ({{ $pertanyaan->down }})</button>
+                                class="fas fa-thumbs-down"></i>
+                            ({{ $pertanyaan->down }})</button>
+                        </span>                            
                         @else
                             <input type="hidden" id="id" name="id" value="{{ Auth::user()->id }}">
                             <button style="margin-left: 1em" type="submit" class="btn btn-primary btn-sm"><i
@@ -79,9 +83,11 @@
                                 @csrf
                                 @method('put')
                                 @if(Auth::user()->id === $jawaban->user_id)
+                                <span class="d-inline-block" tabindex="0" data-toggle="tooltip" title="Kamu tidak diperbolehkan like jawaban kamu">
                                     <button disabled type="submit" class="btn btn-primary btn-sm"><i
-                                            class="fas fa-thumbs-up"></i>
-                                        ({{ $jawaban->up }})</button>
+                                        class="fas fa-thumbs-up"></i>
+                                    ({{ $jawaban->up }})</button>
+                                </span>                                    
                                 @else
                                     <button type="submit" class="btn btn-primary btn-sm"><i
                                             class="fas fa-thumbs-up"></i>
@@ -92,9 +98,11 @@
                                 @csrf
                                 @method('put')
                                 @if(Auth::user()->reputation < 15 || Auth::user()->id === $jawaban->user_id)
+                                <span class="d-inline-block" tabindex="0" data-toggle="tooltip" title="Reputasi kamu masih kurang atau ini adalah jawaban kamu">
                                     <button disabled style="margin-left: 1em" type="submit"
-                                        class="btn btn-primary btn-sm"><i class="fas fa-thumbs-down"></i>
-                                        ({{ $jawaban->down }})</button>
+                                    class="btn btn-primary btn-sm"><i class="fas fa-thumbs-down"></i>
+                                    ({{ $jawaban->down }})</button>
+                                </span>                                    
                                 @else
                                     <input type="hidden" id="id" name="id" value="{{ Auth::user()->id }}">
                                     <button style="margin-left: 1em" type="submit" class="btn btn-primary btn-sm"><i
