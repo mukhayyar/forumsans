@@ -16,6 +16,11 @@ class CreateVoteJawabanTable extends Migration
         Schema::create('vote_jawaban', function (Blueprint $table) {
             $table->integer('up')->default(0);
             $table->integer('down')->default(0);
+            $table->unsignedBigInteger('user_id');
+            $table->unsignedBigInteger('jawaban_id');
+            $table->primary(['user_id', 'jawaban_id']);
+            $table->foreign('jawaban_id')->references('id')->on('jawaban');
+            $table->foreign('user_id')->references('id')->on('users');
         });
     }
 

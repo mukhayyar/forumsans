@@ -22,12 +22,12 @@
                             <button disabled type="submit" class="btn btn-primary btn-sm"><i
                                 class="fas fa-thumbs-up"></i>
                             (@isset($pertanyaan->vote->get(0)->up)
-                            {{$pertanyaan->vote->get(0)->up->count()}}
+                            {{$pertanyaan->vote->where('pertanyaan_id', $pertanyaan->id)->sum('up')}}
                             @endisset
                             @empty($pertanyaan->vote->get(0)->up)
                             @endempty)</button>
                         </span>
-                        @isset($pertanyaan->vote->get(0)->user_id)
+                        {{-- @isset($pertanyaan->vote->get(0)->user_id)
                         $user_id = $pertanyaan->vote->get(0)->user_id
                         @elseif(Auth::user()->id === $user_id)
                         <span class="d-inline-block" tabindex="0" data-toggle="tooltip" title="Kamu tidak diperbolehkan like pertanyaan kamu">
@@ -42,13 +42,13 @@
                         @endisset
                         @empty($pertanyaan->vote->get(0)->user_id)
 
-                        @endempty
+                        @endempty --}}
                         @else
                             <button type="submit" class="btn btn-primary btn-sm"><i class="fas fa-thumbs-up"></i>
-                                (@isset($pertanyaan->vote->get(0)->up){{$pertanyaan->vote->get(0)->up}}
+                                (@isset($pertanyaan->vote->get(0)->up)
+                                {{$pertanyaan->vote->where('pertanyaan_id', $pertanyaan->id)->sum('up')}}
                                 @endisset
                                 @empty($pertanyaan->vote->get(0)->up)
-
                                 @endempty)</button>
                         @endif
                     </form>
@@ -60,13 +60,13 @@
                         <span class="d-inline-block" tabindex="0" data-toggle="tooltip" title="Reputasi kamu masih kurang atau ini adalah pertanyaan kamu">
                             <button disabled style="margin-left: 1em" type="submit" class="btn btn-primary btn-sm"><i
                                 class="fas fa-thumbs-down"></i>
-                            (@isset($pertanyaan->vote->get(0)->down){{$pertanyaan->vote->get(0)->down}}
+                            (@isset($pertanyaan->vote->get(0)->down)
+                            {{$pertanyaan->vote->where('pertanyaan_id', $pertanyaan->id)->sum('down')}}
                             @endisset
                             @empty($pertanyaan->vote->get(0)->down)
-
                             @endempty)</button>
                         </span>
-                        @isset($pertanyaan->vote->get(0)->user_id)
+                        {{-- @isset($pertanyaan->vote->get(0)->user_id)
                         @elseif(Auth::user()->id === $pertanyaan->vote->get(0)->user_id)
                         <span class="d-inline-block" tabindex="0" data-toggle="tooltip" title="Reputasi kamu masih kurang atau ini adalah pertanyaan kamu">
                             <button disabled style="margin-left: 1em" type="submit" class="btn btn-primary btn-sm"><i
@@ -80,12 +80,16 @@
                         @endisset
                         @empty($pertanyaan->vote->get(0)->user_id)
 
-                        @endempty
+                        @endempty --}}
                         @else
                             <input type="hidden" id="id" name="id" value="{{ Auth::user()->id }}">
                             <button style="margin-left: 1em" type="submit" class="btn btn-primary btn-sm"><i
                                     class="fas fa-thumbs-down"></i>
-                                ()</button>
+                                    (@isset($pertanyaan->vote->get(0)->down)
+                                    {{$pertanyaan->vote->where('pertanyaan_id', $pertanyaan->id)->sum('down')}}
+                                    @endisset
+                                    @empty($pertanyaan->vote->get(0)->down)
+                                    @endempty)</button>
                         @endif
                     </form>
                 </div>
@@ -132,13 +136,13 @@
                                 <span class="d-inline-block" tabindex="0" data-toggle="tooltip" title="Kamu tidak diperbolehkan like jawaban kamu">
                                     <button disabled type="submit" class="btn btn-primary btn-sm"><i
                                         class="fas fa-thumbs-up"></i>
-                                    (@isset($jawaban->vote->get(0)->up){{$jawaban->vote->get(0)->up}}
+                                    (@isset($jawaban->vote->get(0)->up)
+                                    {{$jawaban->vote->where('jawaban_id', $jawaban->id)->sum('up')}}
                                     @endisset
                                     @empty($jawaban->vote->get(0)->up)
-
                                     @endempty)</button>
                                 </span>
-                                @isset($jawaban->vote->get(0)->user_id)
+                                {{-- @isset($jawaban->vote->get(0)->user_id)
                                 @elseif(Auth::user()->id === $jawaban->vote->get(0)->user_id)
                                 <span class="d-inline-block" tabindex="0" data-toggle="tooltip" title="Reputasi kamu masih kurang atau ini adalah jawaban kamu">
                                     <button disabled style="margin-left: 1em" type="submit" class="btn btn-primary btn-sm"><i
@@ -152,14 +156,14 @@
                                 @endisset
                                 @empty($jawaban->vote->get(0)->user_id)
 
-                                @endempty
+                                @endempty --}}
                                 @else
                                     <button type="submit" class="btn btn-primary btn-sm"><i
                                             class="fas fa-thumbs-up"></i>
-                                        (@isset($jawaban->vote->get(0)->up){{$jawaban->vote->get(0)->up}}
+                                        (@isset($jawaban->vote->get(0)->up)
+                                        {{$jawaban->vote->where('jawaban_id', $jawaban->id)->sum('up')}}
                                         @endisset
                                         @empty($jawaban->vote->get(0)->up)
-                                        0
                                         @endempty)</button>
                                 @endif
                             </form>
@@ -170,13 +174,13 @@
                                 <span class="d-inline-block" tabindex="0" data-toggle="tooltip" title="Reputasi kamu masih kurang atau ini adalah jawaban kamu">
                                     <button disabled style="margin-left: 1em" type="submit"
                                     class="btn btn-primary btn-sm"><i class="fas fa-thumbs-down"></i>
-                                    (@isset($jawaban->vote->get(0)->down){{$jawaban->vote->get(0)->down}}
-                                        @endisset
-                                        @empty($jawaban->vote->get(0)->down)
-
-                                        @endempty)</button>
+                                    (@isset($jawaban->vote->get(0)->down)
+                                    {{$jawaban->vote->where('jawaban_id', $jawaban->id)->sum('down')}}
+                                    @endisset
+                                    @empty($jawaban->vote->get(0)->down)
+                                    @endempty)</button>
                                 </span>
-                                @isset($jawaban->vote->get(0)->user_id)
+                                {{-- @isset($jawaban->vote->get(0)->user_id)
                                 @elseif(Auth::user()->id === $jawaban->vote->get(0)->user_id)
                                 <span class="d-inline-block" tabindex="0" data-toggle="tooltip" title="Reputasi kamu masih kurang atau ini adalah jawaban kamu">
                                     <button disabled style="margin-left: 1em" type="submit" class="btn btn-primary btn-sm"><i
@@ -190,15 +194,15 @@
                                 @endisset
                                 @empty($jawaban->vote->get(0)->user_id)
 
-                                @endempty
+                                @endempty --}}
                                 @else
                                     <input type="hidden" id="id" name="id" value="{{ Auth::user()->id }}">
                                     <button style="margin-left: 1em" type="submit" class="btn btn-primary btn-sm"><i
                                             class="fas fa-thumbs-down"></i>
-                                        (@isset($jawaban->vote->get(0)->down){{$jawaban->vote->get(0)->down}}
+                                        (@isset($jawaban->vote->get(0)->down)
+                                        {{$jawaban->vote->where('jawaban_id', $jawaban->id)->sum('down')}}
                                         @endisset
                                         @empty($jawaban->vote->get(0)->down)
-
                                         @endempty)</button>
                                 @endif
                             </form>
