@@ -51,6 +51,8 @@ class PertanyaanController extends Controller
      */
     public function show(Pertanyaan $pertanyaan)
     {
+        $t = VotePertanyaan::where('pertanyaan_id',$pertanyaan->id)->select('down')->get();
+        dd($t);
         return view('detail', compact('pertanyaan'));
     }
 
