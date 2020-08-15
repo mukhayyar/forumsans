@@ -64,7 +64,7 @@
         <div class="card" style="color: black">
             <div class="card shadow" style="color: black">
                 <div class="card-body">
-                    @if($pertanyaan->user_id === Auth::user()->id)
+                    @if($jawaban->user_id !== Auth::user()->id && $pertanyaan->jawaban_tepat_id === null)
                         <form action="/detail/{{ $pertanyaan->id }}/jawaban_benar" method="POST">
                             @csrf
                             <label for="check">Tandai benar </label>
@@ -73,7 +73,7 @@
                         </form>
                     @endif
                     @if($jawaban->id === $pertanyaan->jawaban_tepat_id)
-                        <p>Jawaban Benar / Checked</p>
+                        <p>Jawaban Terbaik <i class="fas fa-check" style="color: green"></i></p>
                     @endif
                     <div class="d-flex justify-content-between">
                         <h6 class="card-subtitle mb-2 text-muted">{{ $jawaban->user->name }} |
