@@ -59,7 +59,7 @@ class PertanyaanController extends Controller
         $pertanyaan->jawaban_tepat_id = $request->jawaban_tepat;
         $pertanyaan->update();
 
-        $user = User::find($request->id);
+        $user = User::find($pertanyaan->user_id);
         $user->reputation += 15;
         $user->save();
 
