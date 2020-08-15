@@ -21,17 +21,29 @@
                         <span class="d-inline-block" tabindex="0" data-toggle="tooltip" title="Kamu tidak diperbolehkan like pertanyaan kamu">
                             <button disabled type="submit" class="btn btn-primary btn-sm"><i
                                 class="fas fa-thumbs-up"></i>
-                            ({{$pertanyaan->vote->get(0)->up}})</button>
+                            (@isset($pertanyaan->vote->get(0)->up){{$pertanyaan->vote->get(0)->up}}
+                            @endisset
+                            @empty($pertanyaan->vote->get(0)->up)
+                            0
+                            @endempty)</button>
                         </span>
                         @elseif(Auth::user()->id === $pertanyaan->vote->get(0)->user_id)
                         <span class="d-inline-block" tabindex="0" data-toggle="tooltip" title="Kamu tidak diperbolehkan like pertanyaan kamu">
                             <button disabled type="submit" class="btn btn-primary btn-sm"><i
                                 class="fas fa-thumbs-up"></i>
-                            ({{$pertanyaan->vote->get(0)->up}})</button>
+                            (@isset($pertanyaan->vote->get(0)->up){{$pertanyaan->vote->get(0)->up}}
+                            @endisset
+                            @empty($pertanyaan->vote->get(0)->up)
+                            0
+                            @endempty)</button>
                         </span>
                         @else
                             <button type="submit" class="btn btn-primary btn-sm"><i class="fas fa-thumbs-up"></i>
-                                ({{$pertanyaan->vote->get(0)->up}})</button>
+                                (@isset($pertanyaan->vote->get(0)->up){{$pertanyaan->vote->get(0)->up}}
+                                @endisset
+                                @empty($pertanyaan->vote->get(0)->up)
+                                0
+                                @endempty)</button>
                         @endif
                     </form>
                     <form action="/downvote_pertanyaan/{{ $pertanyaan->id }}" method="POST" class="form-inline">
@@ -42,19 +54,27 @@
                         <span class="d-inline-block" tabindex="0" data-toggle="tooltip" title="Reputasi kamu masih kurang atau ini adalah pertanyaan kamu">
                             <button disabled style="margin-left: 1em" type="submit" class="btn btn-primary btn-sm"><i
                                 class="fas fa-thumbs-down"></i>
-                            ({{ $pertanyaan->vote->get(0)->down }})</button>
+                            (@isset($pertanyaan->vote->get(0)->down){{$pertanyaan->vote->get(0)->down}}
+                            @endisset
+                            @empty($pertanyaan->vote->get(0)->down)
+                            0
+                            @endempty)</button>
                         </span>
                         @elseif(Auth::user()->id === $pertanyaan->vote->get(0)->user_id)
                         <span class="d-inline-block" tabindex="0" data-toggle="tooltip" title="Reputasi kamu masih kurang atau ini adalah pertanyaan kamu">
                             <button disabled style="margin-left: 1em" type="submit" class="btn btn-primary btn-sm"><i
                                 class="fas fa-thumbs-down"></i>
-                            ({{ $pertanyaan->vote->get(0)->down }})</button>
+                            (@isset($pertanyaan->vote->get(0)->down){{$pertanyaan->vote->get(0)->down}}
+                            @endisset
+                            @empty($pertanyaan->vote->get(0)->down)
+                            0
+                            @endempty)</button>
                         </span>
                         @else
                             <input type="hidden" id="id" name="id" value="{{ Auth::user()->id }}">
                             <button style="margin-left: 1em" type="submit" class="btn btn-primary btn-sm"><i
                                     class="fas fa-thumbs-down"></i>
-                                ({{ $pertanyaan->vote->get(0)->down }})</button>
+                                ()</button>
                         @endif
                     </form>
                 </div>
@@ -101,18 +121,30 @@
                                 <span class="d-inline-block" tabindex="0" data-toggle="tooltip" title="Kamu tidak diperbolehkan like jawaban kamu">
                                     <button disabled type="submit" class="btn btn-primary btn-sm"><i
                                         class="fas fa-thumbs-up"></i>
-                                    ({{ $jawaban->vote->get(0)->up }})</button>
+                                    (@isset($jawaban->vote->get(0)->up){{$jawaban->vote->get(0)->up}}
+                                    @endisset
+                                    @empty($jawaban->vote->get(0)->up)
+                                    0
+                                    @endempty)</button>
                                 </span>
                                 @elseif(Auth::user()->id === $jawaban->vote->get(0)->user_id)
                                 <span class="d-inline-block" tabindex="0" data-toggle="tooltip" title="Kamu tidak diperbolehkan like jawaban kamu">
                                     <button disabled type="submit" class="btn btn-primary btn-sm"><i
                                         class="fas fa-thumbs-up"></i>
-                                    ({{ $jawaban->vote->get(0)->up }})</button>
+                                    (@isset($jawaban->vote->get(0)->up){{$jawaban->vote->get(0)->up}}
+                                    @endisset
+                                    @empty($jawaban->vote->get(0)->up)
+                                    0
+                                    @endempty)</button>
                                 </span>
                                 @else
                                     <button type="submit" class="btn btn-primary btn-sm"><i
                                             class="fas fa-thumbs-up"></i>
-                                        ({{ $jawaban->vote->get(0)->up }})</button>
+                                        (@isset($jawaban->vote->get(0)->up){{$jawaban->vote->get(0)->up}}
+                                        @endisset
+                                        @empty($jawaban->vote->get(0)->up)
+                                        0
+                                        @endempty)</button>
                                 @endif
                             </form>
                             <form action="/downvote_jawaban/{{ $jawaban->id }}" method="POST" class="form-inline">
@@ -122,19 +154,31 @@
                                 <span class="d-inline-block" tabindex="0" data-toggle="tooltip" title="Reputasi kamu masih kurang atau ini adalah jawaban kamu">
                                     <button disabled style="margin-left: 1em" type="submit"
                                     class="btn btn-primary btn-sm"><i class="fas fa-thumbs-down"></i>
-                                    ({{ $jawaban->vote->get(0)->down }})</button>
+                                    (@isset($jawaban->vote->get(0)->down){{$jawaban->vote->get(0)->down}}
+                                        @endisset
+                                        @empty($jawaban->vote->get(0)->down)
+                                        0
+                                        @endempty)</button>
                                 </span>
-                                @elseif(Auth::user()->id === $jawaban->vote->get(0)->user_id)
+                                @elseif(Auth::user()->id === $pertanyaan->vote->get(0)->user_id)
                                 <span class="d-inline-block" tabindex="0" data-toggle="tooltip" title="Reputasi kamu masih kurang atau ini adalah jawaban kamu">
                                     <button disabled style="margin-left: 1em" type="submit"
                                     class="btn btn-primary btn-sm"><i class="fas fa-thumbs-down"></i>
-                                    ({{ $jawaban->vote->get(0)->down }})</button>
+                                    (@isset($jawaban->vote->get(0)->down){{$jawaban->vote->get(0)->down}}
+                                        @endisset
+                                        @empty($jawaban->vote->get(0)->down)
+                                        0
+                                        @endempty)</button>
                                 </span>
                                 @else
                                     <input type="hidden" id="id" name="id" value="{{ Auth::user()->id }}">
                                     <button style="margin-left: 1em" type="submit" class="btn btn-primary btn-sm"><i
                                             class="fas fa-thumbs-down"></i>
-                                        ({{ $jawaban->vote->get(0)->down }})</button>
+                                        (@isset($jawaban->vote->get(0)->down){{$jawaban->vote->get(0)->down}}
+                                        @endisset
+                                        @empty($jawaban->vote->get(0)->down)
+                                        0
+                                        @endempty)</button>
                                 @endif
                             </form>
                         </div>
