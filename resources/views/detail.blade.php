@@ -13,6 +13,7 @@
                 <h6 class="card-subtitle mb-2 text-muted">{{ $pertanyaan->user->name }} |
                     <small>{{ $pertanyaan->created_at }}</small></h6>
                 <div class="d-flex justify-content-end">
+
                     <form action="/upvote_pertanyaan/{{ $pertanyaan->id }}" method="POST" class="form-inline">
                         @csrf
                         @method('put')
@@ -20,27 +21,40 @@
                         <span class="d-inline-block" tabindex="0" data-toggle="tooltip" title="Kamu tidak diperbolehkan like pertanyaan kamu">
                             <button disabled type="submit" class="btn btn-primary btn-sm"><i
                                 class="fas fa-thumbs-up"></i>
-                            ({{ $pertanyaan->up }})</button>
-                        </span>                            
+                            ({{$pertanyaan->vote->get(0)->up}})</button>
+                        </span>
+                        @elseif(Auth::user()->id === $pertanyaan->vote->get(0)->user_id)
+                        <span class="d-inline-block" tabindex="0" data-toggle="tooltip" title="Kamu tidak diperbolehkan like pertanyaan kamu">
+                            <button disabled type="submit" class="btn btn-primary btn-sm"><i
+                                class="fas fa-thumbs-up"></i>
+                            ({{$pertanyaan->vote->get(0)->up}})</button>
+                        </span>
                         @else
                             <button type="submit" class="btn btn-primary btn-sm"><i class="fas fa-thumbs-up"></i>
-                                ({{ $pertanyaan->up }})</button>
+                                ({{$pertanyaan->vote->get(0)->up}})</button>
                         @endif
                     </form>
                     <form action="/downvote_pertanyaan/{{ $pertanyaan->id }}" method="POST" class="form-inline">
                         @csrf
                         @method('put')
                         @if(Auth::user()->reputation < 15 || Auth::user()->id === $pertanyaan->user_id)
+
                         <span class="d-inline-block" tabindex="0" data-toggle="tooltip" title="Reputasi kamu masih kurang atau ini adalah pertanyaan kamu">
                             <button disabled style="margin-left: 1em" type="submit" class="btn btn-primary btn-sm"><i
                                 class="fas fa-thumbs-down"></i>
-                            ({{ $pertanyaan->down }})</button>
-                        </span>                            
+                            ({{ $pertanyaan->vote->get(0)->down }})</button>
+                        </span>
+                        @elseif(Auth::user()->id === $pertanyaan->vote->get(0)->user_id)
+                        <span class="d-inline-block" tabindex="0" data-toggle="tooltip" title="Reputasi kamu masih kurang atau ini adalah pertanyaan kamu">
+                            <button disabled style="margin-left: 1em" type="submit" class="btn btn-primary btn-sm"><i
+                                class="fas fa-thumbs-down"></i>
+                            ({{ $pertanyaan->vote->get(0)->down }})</button>
+                        </span>
                         @else
                             <input type="hidden" id="id" name="id" value="{{ Auth::user()->id }}">
                             <button style="margin-left: 1em" type="submit" class="btn btn-primary btn-sm"><i
                                     class="fas fa-thumbs-down"></i>
-                                ({{ $pertanyaan->down }})</button>
+                                ({{ $pertanyaan->vote->get(0)->down }})</button>
                         @endif
                     </form>
                 </div>
@@ -86,12 +100,18 @@
                                 <span class="d-inline-block" tabindex="0" data-toggle="tooltip" title="Kamu tidak diperbolehkan like jawaban kamu">
                                     <button disabled type="submit" class="btn btn-primary btn-sm"><i
                                         class="fas fa-thumbs-up"></i>
-                                    ({{ $jawaban->up }})</button>
-                                </span>                                    
+                                    ({{ $jawaban->vote->get(0)->up }})</button>
+                                </span>
+                                @elseif(Auth::user()->id === $jawaban->vote->get(0)->user_id)
+                                <span class="d-inline-block" tabindex="0" data-toggle="tooltip" title="Kamu tidak diperbolehkan like jawaban kamu">
+                                    <button disabled type="submit" class="btn btn-primary btn-sm"><i
+                                        class="fas fa-thumbs-up"></i>
+                                    ({{ $jawaban->vote->get(0)->up }})</button>
+                                </span>
                                 @else
                                     <button type="submit" class="btn btn-primary btn-sm"><i
                                             class="fas fa-thumbs-up"></i>
-                                        ({{ $jawaban->up }})</button>
+                                        ({{ $jawaban->vote->get(0)->up }})</button>
                                 @endif
                             </form>
                             <form action="/downvote_jawaban/{{ $jawaban->id }}" method="POST" class="form-inline">
@@ -101,13 +121,19 @@
                                 <span class="d-inline-block" tabindex="0" data-toggle="tooltip" title="Reputasi kamu masih kurang atau ini adalah jawaban kamu">
                                     <button disabled style="margin-left: 1em" type="submit"
                                     class="btn btn-primary btn-sm"><i class="fas fa-thumbs-down"></i>
-                                    ({{ $jawaban->down }})</button>
-                                </span>                                    
+                                    ({{ $jawaban->vote->get(0)->down }})</button>
+                                </span>
+                                @elseif(Auth::user()->id === $jawaban->vote->get(0)->user_id)
+                                <span class="d-inline-block" tabindex="0" data-toggle="tooltip" title="Reputasi kamu masih kurang atau ini adalah jawaban kamu">
+                                    <button disabled style="margin-left: 1em" type="submit"
+                                    class="btn btn-primary btn-sm"><i class="fas fa-thumbs-down"></i>
+                                    ({{ $jawaban->vote->get(0)->down }})</button>
+                                </span>
                                 @else
                                     <input type="hidden" id="id" name="id" value="{{ Auth::user()->id }}">
                                     <button style="margin-left: 1em" type="submit" class="btn btn-primary btn-sm"><i
                                             class="fas fa-thumbs-down"></i>
-                                        ({{ $jawaban->down }})</button>
+                                        ({{ $jawaban->vote->get(0)->down }})</button>
                                 @endif
                             </form>
                         </div>

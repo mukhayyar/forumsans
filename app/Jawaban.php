@@ -6,6 +6,7 @@ use Illuminate\Database\Eloquent\Model;
 use App\Pertanyaan;
 use App\KomentarJawaban;
 use App\User;
+use App\VoteJawaban;
 
 class Jawaban extends Model
 {
@@ -24,5 +25,10 @@ class Jawaban extends Model
     function user()
     {
         return $this->belongsTo(User::class);
+    }
+
+    public function vote()
+    {
+        return $this->hasMany(VoteJawaban::class);
     }
 }

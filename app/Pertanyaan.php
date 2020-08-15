@@ -7,6 +7,7 @@ use App\Jawaban;
 use App\KomentarPertanyaan;
 use App\User;
 use App\Tag;
+use App\VotePertanyaan;
 
 class Pertanyaan extends Model
 {
@@ -39,5 +40,10 @@ class Pertanyaan extends Model
     public function tags()
     {
         return $this->belongsToMany(Tag::class,'pertanyaan_tag');
+    }
+
+    public function vote()
+    {
+        return $this->hasMany(VotePertanyaan::class);
     }
 }

@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreateJawabanTable extends Migration
+class AddUserIdToVotePertanyaan extends Migration
 {
     /**
      * Run the migrations.
@@ -13,10 +13,9 @@ class CreateJawabanTable extends Migration
      */
     public function up()
     {
-        Schema::create('jawaban', function (Blueprint $table) {
-            $table->bigIncrements('id');
-            $table->char('isi',255);
-            $table->timestamps();
+        Schema::table('vote_pertanyaan', function (Blueprint $table) {
+            $table->unsignedBigInteger('user_id');
+            $table->foreign('user_id')->references('id')->on('users');
         });
     }
 
@@ -27,6 +26,8 @@ class CreateJawabanTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('jawaban');
+        Schema::table('vote_pertanyaan', function (Blueprint $table) {
+            //
+        });
     }
 }

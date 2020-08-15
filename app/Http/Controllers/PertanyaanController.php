@@ -6,6 +6,8 @@ use Illuminate\Http\Request;
 use App\Pertanyaan;
 use App\Tag;
 use App\User;
+use App\VotePertanyaan;
+use App\VoteJawaban;
 
 class PertanyaanController extends Controller
 {
@@ -49,7 +51,6 @@ class PertanyaanController extends Controller
      */
     public function show(Pertanyaan $pertanyaan)
     {
-        // dd($pertanyaan);
         return view('detail', compact('pertanyaan'));
     }
 
@@ -86,12 +87,13 @@ class PertanyaanController extends Controller
 
     public function upvote_pertanyaan(Pertanyaan $pertanyaan)
     {
-        $detail_pertanyaan = Pertanyaan::find($pertanyaan->id);
+        $vote = new VotePertanyaan;
+        $vote->user_id = auth()->user()->id;
+        $vote->pertanyaan_id = $pertanyaan->id;
+        $vote->up += 1;
+        $vote->save();
 
-        $detail_pertanyaan->up += 1;
-        $detail_pertanyaan->save();
-
-        $user = User::find($detail_pertanyaan->user_id);
+        $user = User::find($pertanyaan->user_id);
         $user->reputation += 10;
         $user->save();
 
@@ -100,10 +102,11 @@ class PertanyaanController extends Controller
 
     public function downvote_pertanyaan(Request $request, Pertanyaan $pertanyaan)
     {
-        $detail_pertanyaan = Pertanyaan::find($pertanyaan->id);
-
-        $detail_pertanyaan->down += 1;
-        $detail_pertanyaan->save();
+        $vote = new VotePertanyaan;
+        $vote->user_id = auth()->user()->id;
+        $vote->pertanyaan_id = $pertanyaan->id;
+        $vote->down += 1;
+        $vote->save();
 
         $user = User::find($request->id);
         $user->reputation -= 1;

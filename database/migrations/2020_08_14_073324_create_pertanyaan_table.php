@@ -17,8 +17,6 @@ class CreatePertanyaanTable extends Migration
             $table->bigIncrements('id');
             $table->char('judul',55);
             $table->char('isi',255);
-            $table->integer('up')->default(0);
-            $table->integer('down')->default(0);
             $table->timestamps();
         });
     }
