@@ -7,13 +7,13 @@
 
     <title>Sanbercode</title>
 
-    <link href="{{ asset('sbadmin2/css/sb-admin-2.min.css') }}" rel="stylesheet">
+    <link href="{{ secure_asset('sbadmin2/css/sb-admin-2.min.css') }}" rel="stylesheet">
     <link rel="stylesheet" type="text/css" href="//fonts.googleapis.com/css?family=Pacifico" />
 
     <!-- Styles -->
     <style>
         #welcome {
-            background: url("{{ asset('img/welcome.jpg') }}");
+            background: url("{{ secure_asset('img/welcome.jpg') }}");
             background-repeat: no-repeat;
             background-size: cover;
         }

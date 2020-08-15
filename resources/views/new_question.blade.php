@@ -38,5 +38,5 @@
 @endsection
 
 @push('script')
-<script src="{{ asset('js/tinymce4.js') }}"></script>
+<script src="{{ secure_asset('js/tinymce4.js') }}"></script>
 @endpush

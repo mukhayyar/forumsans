@@ -247,7 +247,7 @@
 @endsection
 
 @push('script')
-    <script src="{{ asset('js/tinymce4.js') }}"></script>
+    <script src="{{ secure_asset('js/tinymce4.js') }}"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.js"></script>
     <script>
     @if(Session::has('sukses'))
