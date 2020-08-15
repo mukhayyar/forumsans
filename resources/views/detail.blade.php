@@ -78,11 +78,12 @@
         <div class="card" style="color: black">
             <div class="card shadow" style="color: black">
                 <div class="card-body">
-                    @if($jawaban->user_id !== Auth::user()->id && $pertanyaan->jawaban_tepat_id === null)
+                    @if($pertanyaan->user_id === Auth::user()->id && $jawaban->user_id !== Auth::user()->id && $pertanyaan->jawaban_tepat_id === null)
                         <form action="/detail/{{ $pertanyaan->id }}/jawaban_benar" method="POST">
                             @csrf
-                            <label for="check">Tandai benar </label>
+                            <label for="">Tandai benar </label>
                             <input type="checkbox" name="jawaban_tepat" id="check" value="{{ $jawaban->id }}">
+                            <input type="hidden" id="id" name="id" value="{{ $jawaban->user_id }}">
                             <input type="submit" value="Submit">
                         </form>
                     @endif

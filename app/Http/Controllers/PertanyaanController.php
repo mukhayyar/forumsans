@@ -58,6 +58,11 @@ class PertanyaanController extends Controller
     {
         $pertanyaan->jawaban_tepat_id = $request->jawaban_tepat;
         $pertanyaan->update();
+
+        $user = User::find($request->id);
+        $user->reputation += 15;
+        $user->save();
+
         return redirect("/detail/$pertanyaan->id");
     }
 
