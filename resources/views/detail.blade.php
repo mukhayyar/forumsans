@@ -34,11 +34,11 @@
                 <span class="badge badge-pill badge-primary">{{ $tag->title }}</span>
             @endforeach
             <hr>
-            @foreach($pertanyaan->komentar as $komentar)
+            @foreach($pertanyaan->komentar->take(3) as $komentar)
                 <p class="card-text">{!!$komentar->isi!!} <small>{{ $komentar->user->name }} |
                         {{ $komentar->created_at }}</small></p>
             @endforeach
-            <a style="color: gray" href="#">Tambah Komentar</a>
+            <a style="color: gray" href="/detail/{{$pertanyaan->id}}/komentar">Tambah Komentar</a>
         </div>
     </div><br>
 
@@ -48,7 +48,15 @@
             <div class="card shadow" style="color: black">
                 <div class="card-body">
                     @if($pertanyaan->user_id === Auth::user()->id)
-                        <p>Jawaban Tepat // checked</p>
+                    <form action="/detail/{{$pertanyaan->id}}/jawaban_benar" method="POST">
+                    @csrf
+                        <label for="check">Tandai benar </label>
+                        <input type="checkbox" name="jawaban_tepat" id="check" value="{{$jawaban->id}}">
+                        <input type="submit" value="Submit">
+                    </form>
+                    @endif
+                    @if($jawaban->id === $pertanyaan->jawaban_tepat_id)
+                    <p>Jawaban Benar / Checked</p>
                     @endif
                     <div class="d-flex justify-content-between">
                         <h6 class="card-subtitle mb-2 text-muted">{{ $jawaban->user->name }} |
@@ -72,11 +80,11 @@
                     <hr>
                     <p class="card-text">{!!$jawaban->isi!!}</p>
                     <hr>
-                    @foreach($pertanyaan->jawaban->get(0)->komentar as $komentar_jawaban)
+                    @foreach($jawaban->komentar->take(3) as $komentar_jawaban)
                         <p class="card-text">{!!$komentar_jawaban->isi!!} <small>{{ $komentar_jawaban->user->name }}
                                 | {{ $komentar_jawaban->created_at }}</small></p>
                     @endforeach
-                    <a style="color: gray" href="#">Tambah Komentar</a>
+                    <a style="color: gray" href="/detail/{{$pertanyaan->id}}/komentar/{{$jawaban->id}}">Tambah Komentar</a>
                 </div>
             </div>
         </div><br>

@@ -9,31 +9,6 @@ use App\User;
 
 class PertanyaanController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function index()
-    {
-        //
-    }
-
-    /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function create()
-    {
-    }
-
-    /**
-     * Store a newly created resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
-     */
     public function store(Request $request)
     {
         $pertanyaan = new Pertanyaan;
@@ -59,7 +34,8 @@ class PertanyaanController extends Controller
                 array_push($tag_id, $tag->id);
             }
         }
-
+        $user_id = auth()->user()->id;
+        $pertanyaan->tags()->sync($user_id);
         $pertanyaan->tags()->sync($tag_id);
 
         return redirect('/home')->with('sukses', 'Pertanyaan berhasil dibuat');
@@ -77,15 +53,11 @@ class PertanyaanController extends Controller
         return view('detail', compact('pertanyaan'));
     }
 
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function edit(Pertanyaan $pertanyaan)
+    public function yes(Request $request, Pertanyaan $pertanyaan)
     {
-        //
+        $pertanyaan->jawaban_tepat_id = $request->jawaban_tepat;
+        $pertanyaan->update();
+        return redirect("/detail/$pertanyaan->id");
     }
 
     /**
