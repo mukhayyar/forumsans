@@ -28,8 +28,7 @@
                             @endempty)</button>
                         </span>
                         @isset($pertanyaan->vote->get(0)->user_id)
-                        $user_id = $pertanyaan->vote->get(0)->user_id
-                        @elseif(Auth::user()->id === $user_id)
+                        @elseif(Auth::user()->id === $pertanyaan->vote->get(0)->user_id)
                         <span class="d-inline-block" tabindex="0" data-toggle="tooltip" title="Kamu tidak diperbolehkan like pertanyaan kamu">
                             <button disabled type="submit" class="btn btn-primary btn-sm"><i
                                 class="fas fa-thumbs-up"></i>

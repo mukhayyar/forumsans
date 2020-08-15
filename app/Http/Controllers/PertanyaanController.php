@@ -8,6 +8,7 @@ use App\Tag;
 use App\User;
 use App\VotePertanyaan;
 use App\VoteJawaban;
+use Illuminate\Support\Facades\DB;
 
 class PertanyaanController extends Controller
 {
@@ -51,8 +52,7 @@ class PertanyaanController extends Controller
      */
     public function show(Pertanyaan $pertanyaan)
     {
-        $t = VotePertanyaan::where('pertanyaan_id',$pertanyaan->id)->select('down')->get();
-        dd($t);
+
         return view('detail', compact('pertanyaan'));
     }
 
