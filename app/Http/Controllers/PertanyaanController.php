@@ -44,7 +44,7 @@ class PertanyaanController extends Controller
         $pertanyaan->tags()->sync($user_id);
         $pertanyaan->tags()->sync($tag_id);
 
-        return redirect('/home')->with('sukses', 'Pertanyaan berhasil dibuat');
+        return redirect('/pertanyaan')->with('sukses', 'Pertanyaan berhasil dibuat');
     }
 
     /**

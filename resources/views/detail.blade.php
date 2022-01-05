@@ -29,22 +29,6 @@
                             @empty($pertanyaan->vote->get(0)->up)
                             @endempty)</button>
                         </span>
-                        {{-- @isset($pertanyaan->vote->get(0)->user_id)
-                        $user_id = $pertanyaan->vote->get(0)->user_id
-                        @elseif(Auth::user()->id === $user_id)
-                        <span class="d-inline-block" tabindex="0" data-toggle="tooltip" title="Kamu tidak diperbolehkan like pertanyaan kamu">
-                            <button disabled type="submit" class="btn btn-primary btn-sm"><i
-                                class="fas fa-thumbs-up"></i>
-                            (@isset($pertanyaan->vote->get(0)->up){{$pertanyaan->vote->get(0)->up}}
-                            @endisset
-                            @empty($pertanyaan->vote->get(0)->up)
-
-                            @endempty)</button>
-                        </span>
-                        @endisset
-                        @empty($pertanyaan->vote->get(0)->user_id)
-
-                        @endempty --}}
                         @else
                             <button type="submit" class="btn btn-primary btn-sm"><i class="fas fa-thumbs-up"></i>
                                 (@isset($pertanyaan->vote->get(0)->up)
@@ -68,21 +52,6 @@
                             @empty($pertanyaan->vote->get(0)->down)
                             @endempty)</button>
                         </span>
-                        {{-- @isset($pertanyaan->vote->get(0)->user_id)
-                        @elseif(Auth::user()->id === $pertanyaan->vote->get(0)->user_id)
-                        <span class="d-inline-block" tabindex="0" data-toggle="tooltip" title="Reputasi kamu masih kurang atau ini adalah pertanyaan kamu">
-                            <button disabled style="margin-left: 1em" type="submit" class="btn btn-primary btn-sm"><i
-                                class="fas fa-thumbs-down"></i>
-                            (@isset($pertanyaan->vote->get(0)->down){{$pertanyaan->vote->get(0)->down}}
-                            @endisset
-                            @empty($pertanyaan->vote->get(0)->down)
-
-                            @endempty)</button>
-                        </span>
-                        @endisset
-                        @empty($pertanyaan->vote->get(0)->user_id)
-
-                        @endempty --}}
                         @else
                             <input type="hidden" id="id" name="id" value="{{ Auth::user()->id }}">
                             <button style="margin-left: 1em" type="submit" class="btn btn-primary btn-sm"><i
@@ -248,7 +217,6 @@
 @endsection
 
 @push('script')
-    <script src="{{ secure_asset('js/tinymce4.js') }}"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.js"></script>
     <script>
     @if(Session::has('sukses'))

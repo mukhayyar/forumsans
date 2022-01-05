@@ -14,9 +14,19 @@
 Route::get('/', function () {
     return view('welcome');
 });
+Route::get('/test', 'HomeController@test');
 
 
 
+
+Route::get('/tag', 'HomeController@tag');
+
+Route::get('/user', 'HomeController@user');
+
+Route::get('/user/detail/{user}', 'HomeController@showUser');
+
+
+Route::get('/pertanyaan', 'HomeController@index')->name('home');
 
 Route::group(['middleware' => ['web','auth']], function(){
     Route::post('/detail/{pertanyaan}/jawaban_benar','PertanyaanController@yes');
@@ -36,22 +46,4 @@ Route::group(['middleware' => ['web','auth']], function(){
     Route::put('/downvote_jawaban/{jawaban}', 'JawabanController@downvote_jawaban');
 });
 
-
-
-
-
-Route::get('/tag', 'HomeController@tag');
-
-Route::get('/user', 'HomeController@user');
-
-Route::get('/user/detail/{user}', 'HomeController@showUser');
-
-
-
 Auth::routes();
-
-Route::get('/home', 'HomeController@index')->name('home');
-
-Route::group(['prefix' => 'laravel-filemanager', 'middleware' => ['web', 'auth']], function () {
-    \UniSharp\LaravelFilemanager\Lfm::routes();
-});

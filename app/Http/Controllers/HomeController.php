@@ -2,10 +2,11 @@
 
 namespace App\Http\Controllers;
 
-use Illuminate\Http\Request;
-use App\Pertanyaan;
-use App\User;
 use App\Tag;
+use App\User;
+use App\Pertanyaan;
+use Illuminate\Support\Str;
+use Illuminate\Http\Request;
 
 class HomeController extends Controller
 {
@@ -14,11 +15,6 @@ class HomeController extends Controller
      *
      * @return void
      */
-    public function __construct()
-    {
-        $this->middleware('auth');
-    }
-
     /**
      * Show the application dashboard.
      *
@@ -28,6 +24,12 @@ class HomeController extends Controller
     {
         $pertanyaan = Pertanyaan::orderBy('created_at','asc')->get();
         return view('home',compact('pertanyaan'));
+    }
+
+    public function test(Request $request)
+    {
+        $html = Str::markdown('# Laravel');
+        return $html;
     }
 
     public function user()

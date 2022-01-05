@@ -7,30 +7,18 @@
 
     <title>Sanbercode</title>
 
-    <link href="{{ secure_asset('sbadmin2/css/sb-admin-2.min.css') }}" rel="stylesheet">
+    <link href="{{ asset('sbadmin2/css/sb-admin-2.min.css') }}" rel="stylesheet">
+    <link href="{{ asset('css/app.css') }}" rel="stylesheet">
+    <link href="{{ asset('landingpage/css/styles.css') }}" rel="stylesheet">
+
     <link rel="stylesheet" type="text/css" href="//fonts.googleapis.com/css?family=Pacifico" />
-
-    <!-- Styles -->
-    <style>
-        #welcome {
-            background: url("{{ secure_asset('img/welcome.jpg') }}");
-            background-repeat: no-repeat;
-            background-size: cover;
-        }
-
-        .container-fluid {
-            background: rgba(42, 38, 61, 0.82);
-            height: 100vh;
-        }
-
-    </style>
     @stack('style')
 </head>
 
 <body id="welcome">
-    <div class="container-fluid">
-        @yield('content')
-    </div>
+
+    @yield('content')
+
 
     @stack('script')
 </body>
