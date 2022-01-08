@@ -4,6 +4,9 @@
  * building robust, powerful web applications using Vue and Laravel.
  */
 
+import Editor from '@toast-ui/editor'
+import 'codemirror/lib/codemirror.css'
+import '@toast-ui/editor/dist/toastui-editor.css';
 require('./bootstrap');
 
 window.Vue = require('vue').default;
@@ -27,13 +30,6 @@ Vue.component('example-component', require('./components/ExampleComponent.vue').
  * or customize the JavaScript scaffolding to fit your unique needs.
  */
 
-const app = new Vue({
-    el: '#app',
-});
-
-import Editor from '@toast-ui/editor'
-import 'codemirror/lib/codemirror.css';
-import '@toast-ui/editor/dist/toastui-editor.css';
 
 const editor = new Editor({
   el: document.querySelector('#editor'),
@@ -41,8 +37,21 @@ const editor = new Editor({
   initialEditType: 'markdown',
   placeholder: 'Write something cool!',
 })
-document.querySelector('#createPostForm').addEventListener('submit', e => {
-    e.preventDefault();
-    document.querySelector('#content').value = editor.getMarkdown();
-    e.target.submit();
-});
+
+if (document.querySelector('#createPostForm')) {
+    document.querySelector('#createPostForm').addEventListener('submit', e => {
+        e.preventDefault();
+        document.querySelector('#isi').value = editor.getMarkdown();
+        e.target.submit();
+    });
+}
+
+if (document.querySelector('#editPostForm')) {
+    editor.setMarkdown(document.querySelector('#oldContent').value);
+
+    document.querySelector('#editPostForm').addEventListener('submit', e => {
+        e.preventDefault();
+        document.querySelector('#content').value = editor.getMarkdown();
+        e.target.submit();
+    });
+}

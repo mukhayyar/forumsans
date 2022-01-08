@@ -12,14 +12,14 @@
     <title>Sanbercode</title>
 
     <!-- Custom fonts for this template-->
-    <link href="{{ asset('sbadmin2/vendor/fontawesome-free/css/all.min.css') }}"
+    <link href="{{ asset('/sbadmin2/vendor/fontawesome-free/css/all.min.css') }}"
         rel="stylesheet" type="text/css">
     <link
         href="https://fonts.googleapis.com/css?family=Nunito:200,200i,300,300i,400,400i,600,600i,700,700i,800,800i,900,900i"
         rel="stylesheet">
 
     <!-- Custom styles for this template-->
-    <link href="{{ asset('sbadmin2/css/sb-admin-2.min.css') }}" rel="stylesheet">
+    <link href="{{ asset('/sbadmin2/css/sb-admin-2.min.css') }}" rel="stylesheet">
     @stack('style')
 
 </head>
@@ -50,6 +50,20 @@
                     <span>Pertanyaan</span></a>
             </li>
 
+            <li class="nav-item">
+                <a class="nav-link" href="/blog">
+                    <i class="far fa-newspaper"></i>
+                    <span>Blog</span></a>
+            </li>
+
+            <hr class="sidebar-divider my-0">
+
+            <li class="nav-item">
+                <a class="nav-link" href="/job">
+                    <i class="fas fa-briefcase"></i>
+                    <span>Portal Job</span></a>
+            </li>
+
             <hr class="sidebar-divider my-0">
 
             <!-- Nav Item - Dashboard -->
@@ -63,7 +77,7 @@
 
             <!-- Nav Item - Dashboard -->
             <li class="nav-item">
-                <a class="nav-link" href="/user">
+                <a class="nav-link" href="/users">
                     <i class="fas fa-users"></i>
                     <span>Users</span></a>
             </li>
@@ -86,12 +100,12 @@
                         <!-- Authentication Links -->
                         @guest
                             <li class="nav-item">
-                                <a class="nav-link"
+                                <a class="nav-link" style="color: black"
                                     href="{{ route('login') }}">{{ __('Login') }}</a>
                             </li>
                             @if(Route::has('register'))
                                 <li class="nav-item">
-                                    <a class="nav-link"
+                                    <a class="nav-link" style="color: black"
                                         href="{{ route('register') }}">{{ __('Register') }}</a>
                                 </li>
                             @endif
@@ -100,7 +114,7 @@
                                 <a style="color: black" id="navbarDropdown" class="nav-link dropdown-toggle" href="#"
                                     role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"
                                     v-pre>
-                                    {{ Auth::user()->name }} <span class="caret"></span>
+                                    {{ Auth::user()->username }} <span class="caret"></span>
                                 </a>
 
                                 <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdown">
@@ -159,7 +173,7 @@
     <!-- Bootstrap core JavaScript-->
     <script src="{{ asset('sbadmin2/vendor/jquery/jquery.js') }}"></script>
     <script src="{{ asset('sbadmin2/vendor/bootstrap/js/bootstrap.bundle.min.js') }}"></script>
-
+    <script src="{{ asset('js/app.js') }}"></script>
     <!-- script tambahan sweet alert, bukan dari bawaan sb-admin-2 -->
     @stack('script')
 </body>

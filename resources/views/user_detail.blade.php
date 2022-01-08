@@ -19,7 +19,7 @@
         <div class="col-sm-5">
             <div class="card shadow">
                 <div class="card-body">
-                    <h5>{{ $user->name }}</h5>
+                    <h5>{{ $user->username }}</h5>
                     <p class="card-text">Reputasi: {{ $user->checkReputation() }}<br>Bergabung sejak
                         {{ date('d M Y', strtotime($user->created_at)) }}</p>
                 </div>
@@ -59,7 +59,7 @@
                 @if($user->pertanyaan->get(0))
                     @foreach($user->pertanyaan->take(5) as $pertanyaan)
                         <div class="d-flex justify-content-between">
-                            <a href="/detail/{{ $pertanyaan->id }}">
+                            <a href="/pertanyaan/{{ $pertanyaan->id }}">
                                 <h6>{{ $pertanyaan->judul }}</h6>
                             </a>
                             <small>{{ date('d M Y', strtotime($pertanyaan->created_at)) }}</small>
@@ -68,6 +68,11 @@
                     @endforeach
                 @else
                     <p>Tidak ada data</p>
+                    @if(Auth::check())
+                        @if(Auth::user()->id == $user->id)
+                        <strong> Buat pertanyaan pertamamu <a href="{{ route('create.pertanyaan') }}">disini!</a></strong>
+                        @endif
+                    @endif
                 @endif
             </div>
         </div>
@@ -85,7 +90,7 @@
                 @if($user->jawaban->get(0))
                     @foreach($user->jawaban->take(5) as $jawaban)
                         <div class="d-flex justify-content-between">
-                            <a href="/detail/{{ $jawaban->pertanyaan_id }}">
+                            <a href="/pertanyaan/{{ $jawaban->pertanyaan_id }}">
                                 <h6>{!!Str::limit($jawaban->isi, 50, ' (...)')!!}</h6>
                             </a>
                             <small>{{ date('d M Y', strtotime($jawaban->created_at)) }}</small>
@@ -94,6 +99,11 @@
                     @endforeach
                 @else
                     <p>Tidak ada data</p>
+                    @if(Auth::check())
+                        @if(Auth::user()->id == $user->id)
+                        <strong> Buat artikel pertamamu <a href="{{ route('blog.create') }}">disini!</a></strong>
+                        @endif
+                    @endif
                 @endif
             </div>
         </div>

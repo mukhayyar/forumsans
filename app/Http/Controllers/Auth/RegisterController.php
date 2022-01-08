@@ -2,12 +2,15 @@
 
 namespace App\Http\Controllers\Auth;
 
+use App\Role;
+use App\User;
 use App\Http\Controllers\Controller;
-use App\Providers\RouteServiceProvider;
-use App\Models\User;
-use Illuminate\Foundation\Auth\RegistersUsers;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
+use App\Providers\RouteServiceProvider;
+use Illuminate\Support\Facades\Request;
 use Illuminate\Support\Facades\Validator;
+use Illuminate\Foundation\Auth\RegistersUsers;
 
 class RegisterController extends Controller
 {
@@ -29,8 +32,16 @@ class RegisterController extends Controller
      *
      * @var string
      */
-    protected $redirectTo = RouteServiceProvider::HOME;
-
+    protected $redirectTo = RouteServiceProvider::USER;
+    protected function redirectTo()
+    {
+        if(Auth::user() && Auth::user()->roles()->get()->first()->name == 'admin'){
+            return RouteServiceProvider::ADMIN;
+        } else if(Auth::user() && Auth::user()->roles()->get()->first()->name == 'business') {
+            return RouteServiceProvider::BUSINESS;
+        }
+        return RouteServiceProvider::USER;
+    }
     /**
      * Create a new controller instance.
      *
@@ -50,7 +61,7 @@ class RegisterController extends Controller
     protected function validator(array $data)
     {
         return Validator::make($data, [
-            'name' => ['required', 'string', 'max:255'],
+            'username' => ['required', 'string', 'max:255','unique:users','alpha_dash'],
             'email' => ['required', 'string', 'email', 'max:255', 'unique:users'],
             'password' => ['required', 'string', 'min:8', 'confirmed'],
         ]);
@@ -64,10 +75,19 @@ class RegisterController extends Controller
      */
     protected function create(array $data)
     {
-        return User::create([
-            'name' => $data['name'],
-            'email' => $data['email'],
-            'password' => Hash::make($data['password']),
-        ]);
+        if(!$data['role']){
+            $role = Role::where('name','user')->get()[0];
+        } else if($data['role'] == 'user' || $data['role'] == 'business'){
+            $role = Role::where('name',$data['role'])->get()[0];
+        } else {
+            $role = Role::where('name','user')->get()[0];
+        }
+        $user = new User;
+        $user->username = $data['username'];
+        $user->email = $data['email'];
+        $user->password = Hash::make($data['password']);
+        $user->save();
+        $user->roles()->sync($role->id);
+        return $user;
     }
 }

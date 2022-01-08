@@ -18,8 +18,12 @@ class PertanyaanController extends Controller
             'tag' => 'required|starts_with:#|required_without:‎ ‎'
         ]);
         $pertanyaan = new Pertanyaan;
+        $slug = strtolower($request->judul);
+        $slug = str_replace(' ','-',$request->judul);
+        $slug = time().'-'.$slug.'-'.auth()->user()->username;
         $pertanyaan->judul = $request->judul;
         $pertanyaan->isi = $request->isi;
+        $pertanyaan->slug = $slug;
         $pertanyaan->user_id = auth()->user()->id;
         $pertanyaan->save();
 
@@ -53,10 +57,6 @@ class PertanyaanController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function show(Pertanyaan $pertanyaan)
-    {
-        return view('detail', compact('pertanyaan'));
-    }
 
     public function yes(Request $request, Pertanyaan $pertanyaan)
     {
@@ -126,5 +126,10 @@ class PertanyaanController extends Controller
         $user->save();
 
         return redirect()->route('detail', ['pertanyaan' => $pertanyaan->id])->with('sukses', 'Pertanyaan berhasil dibuat');
+    }
+
+    public function delete_pertanyaan(Requestr $request)
+    {
+
     }
 }

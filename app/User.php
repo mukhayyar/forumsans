@@ -2,13 +2,15 @@
 
 namespace App;
 
+use App\Post;
+use App\Role;
+use App\Jawaban;
+use App\Pertanyaan;
+use App\KomentarJawaban;
+use App\KomentarPertanyaan;
+use Illuminate\Notifications\Notifiable;
 use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Foundation\Auth\User as Authenticatable;
-use Illuminate\Notifications\Notifiable;
-use App\Pertanyaan;
-use App\KomentarPertanyaan;
-use App\Jawaban;
-use App\KomentarJawaban;
 
 class User extends Authenticatable
 {
@@ -46,6 +48,11 @@ class User extends Authenticatable
         return $this->hasMany(Pertanyaan::class);
     }
 
+    public function post()
+    {
+        return $this->hasMany(Post::class);
+    }
+
     public function komentar_pertanyaan()
     {
         return $this->hasMany(KomentarPertanyaan::class);
@@ -69,5 +76,10 @@ class User extends Authenticatable
             return 'Point: '.$this->reputation. ' | Bad';
         }
         return 'Point: '.$this->reputation. ' | Good';
+    }
+
+    public function roles()
+    {
+        return $this->belongsToMany(Role::class,'user_role')->withPivot('user_id','role_id');
     }
 }

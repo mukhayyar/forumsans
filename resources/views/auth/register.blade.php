@@ -13,12 +13,13 @@
                     </div>
                     <form class="user" method="POST" action="{{ route('register') }}">
                         @csrf
+                        <input type="hidden" name="role" value="{{ ($_GET['as']) ?? '' }}">
                         <div class="form-group">
                             <input type="name"
-                                class="form-control form-control-user @error('name') is-invalid @enderror" id="name"
-                                placeholder="Name" name="name" value="{{ old('name') }}" required
+                                class="form-control form-control-user @error('username') is-invalid @enderror" id="name"
+                                placeholder="Name" name="username" value="{{ old('name') }}" required
                                 autocomplete="name" autofocus>
-                            @error('name')
+                            @error('username')
                                 <span class="invalid-feedback" role="alert">
                                     <strong>{{ $message }}</strong>
                                 </span>

@@ -2,8 +2,12 @@
 
 namespace App\Http\Controllers\Admin;
 
-use App\Http\Controllers\Controller;
+use App\User;
 use Illuminate\Http\Request;
+use Illuminate\Support\Carbon;
+use Illuminate\Support\Facades\DB;
+use App\Http\Controllers\Controller;
+use Illuminate\Support\Facades\Auth;
 
 class DashboardController extends Controller
 {
@@ -14,7 +18,36 @@ class DashboardController extends Controller
      */
     public function index()
     {
-        //
+        // $firstDayCurrentMonth = date('Y-m-d', strtotime("first day of this month"));
+        // $lastDayCurrentMonth = date('Y-m-d', strtotime("last day of this month"));
+        // $firstDayPreviousMonth = date('Y-m-d', strtotime("first day of previous month"));
+        // $lastDayPreviousMonth = date('Y-m-d', strtotime("last day of previous month"));
+        $currentMonth = date('m');
+        $previousMonth = date('m', strtotime('-1 month'));
+        $user_monthly = DB::table("users")
+            ->whereRaw('MONTH(created_at) = ?',[$currentMonth])
+            ->count();
+        $question_monthly = DB::table("pertanyaan")
+            ->whereRaw('MONTH(created_at) = ?',[$currentMonth])
+            ->count();
+        $blog_monthly = DB::table("posts")
+            ->whereRaw('MONTH(created_at) = ?',[$currentMonth])
+            ->count();
+
+        // init empty array to store users with role business
+        $business_user = [];
+        // specific date to get this month data
+        $users = User::with('roles')->whereMonth('created_at','=',date('m'))->get();
+        foreach($users as $user)
+        {
+            if($user->roles->first()){
+                if($user->roles->first()->name == 'business'){
+                    $business_user[] = $user;
+                }
+            }
+        }
+        $business_monthly = count($business_user);
+        return view('admin/index',compact('user_monthly','question_monthly','blog_monthly','business_monthly'));
     }
 
     /**
