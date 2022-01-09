@@ -51,7 +51,7 @@ if (document.querySelector('#editPostForm')) {
 
     document.querySelector('#editPostForm').addEventListener('submit', e => {
         e.preventDefault();
-        document.querySelector('#content').value = editor.getMarkdown();
+        document.querySelector('#isi').value = editor.getMarkdown();
         e.target.submit();
     });
 }

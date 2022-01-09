@@ -51,6 +51,28 @@ class PertanyaanController extends Controller
         return redirect('/pertanyaan')->with('sukses', 'Pertanyaan berhasil dibuat');
     }
 
+    public function edit(Pertanyaan $pertanyaan)
+    {
+        return view('pertanyaan/edit_pertanyaan',compact('pertanyaan'));
+    }
+
+    public function update(Request $request, Pertanyaan $pertanyaan)
+    {
+        $request->validate([
+            'judul' => 'required',
+            'isi' => 'required',
+        ]);
+        $slug = strtolower($request->judul);
+        $slug = str_replace(' ','-',$request->judul);
+        $slug = time().'-'.$slug.'-'.auth()->user()->username;
+        $pertanyaan->judul = $request->judul;
+        $pertanyaan->isi = $request->isi;
+        $pertanyaan->slug = $slug;
+        $pertanyaan->user_id = auth()->user()->id;
+        $pertanyaan->update();
+
+        return redirect('/pertanyaan')->with('sukses', 'Pertanyaan berhasil dibuat');
+    }
     /**
      * Display the specified resource.
      *
@@ -128,8 +150,9 @@ class PertanyaanController extends Controller
         return redirect()->route('detail', ['pertanyaan' => $pertanyaan->id])->with('sukses', 'Pertanyaan berhasil dibuat');
     }
 
-    public function delete_pertanyaan(Requestr $request)
+    public function destroy(Request $request, Pertanyaan $pertanyaan)
     {
-
+        $pertanyaan->delete();
+        return redirect()->route('pertanyaan.index');
     }
 }

@@ -18,6 +18,7 @@ class DashboardController extends Controller
      */
     public function index()
     {
+        $dash_active = 'active';
         // $firstDayCurrentMonth = date('Y-m-d', strtotime("first day of this month"));
         // $lastDayCurrentMonth = date('Y-m-d', strtotime("last day of this month"));
         // $firstDayPreviousMonth = date('Y-m-d', strtotime("first day of previous month"));
@@ -47,7 +48,7 @@ class DashboardController extends Controller
             }
         }
         $business_monthly = count($business_user);
-        return view('admin/index',compact('user_monthly','question_monthly','blog_monthly','business_monthly'));
+        return view('admin/index',compact('dash_active','user_monthly','question_monthly','blog_monthly','business_monthly'));
     }
 
     /**

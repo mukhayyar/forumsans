@@ -14,7 +14,8 @@ class CompanyController extends Controller
      */
     public function index()
     {
-        //
+        $company_active = 'active';
+        return view('admin/company/index',compact('company_active'));
     }
 
     /**

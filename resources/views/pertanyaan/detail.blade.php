@@ -11,14 +11,14 @@
             @if(Auth::user()->id == $pertanyaan->user->id)
             <div class="row">
                 <div class="col-0 mr-2 ml-3">
-                    <form method="POST" action="/delete/pertanyaan/{{ $pertanyaan->slug }}">
+                    <form method="POST" action="/pertanyaan/{{ $pertanyaan->slug }}">
                         @csrf
                         @method('delete')
                         <button class="btn btn-sm btn-danger"><i class="fas fa-trash"></i></button>
                     </form>
                 </div>
                 <div class="col-0">
-                    <a href="#" class="btn btn-sm btn-success"><i class="fas fa-pen"></i></a>
+                    <a href="/pertanyaan/{{ $pertanyaan->slug }}/edit" class="btn btn-sm btn-success"><i class="fas fa-pen"></i></a>
                 </div>
             </div>
             @endif
@@ -82,7 +82,7 @@
                 </div>
             </div>
             <hr>
-            <p class="card-text">{!!$pertanyaan->isi!!}</p>
+            <p class="card-text">{!!\Illuminate\Support\Str::markdown($pertanyaan->isi)!!}</p>
             @foreach($pertanyaan->tags as $tag)
                 <span class="badge badge-pill badge-primary">{{ $tag->title }}</span>
             @endforeach

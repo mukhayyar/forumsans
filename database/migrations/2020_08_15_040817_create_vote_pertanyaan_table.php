@@ -19,8 +19,8 @@ class CreateVotePertanyaanTable extends Migration
             $table->unsignedBigInteger('user_id');
             $table->unsignedBigInteger('pertanyaan_id');
             $table->primary(['user_id', 'pertanyaan_id']);
-            $table->foreign('pertanyaan_id')->references('id')->on('pertanyaan');
-            $table->foreign('user_id')->references('id')->on('users');
+            $table->foreign('pertanyaan_id')->references('id')->on('pertanyaan')->onDelete('cascade')->onUpdate('cascade');
+            $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade')->onUpdate('cascade');
         });
     }
 

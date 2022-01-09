@@ -15,7 +15,8 @@ class TagController extends Controller
      */
     public function index()
     {
-        //
+        $tag_active = 'active';
+        return view('admin/tag/index',compact('tag_active'));
     }
 
     /**

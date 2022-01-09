@@ -9,7 +9,7 @@
     <meta name="description" content="">
     <meta name="author" content="">
 
-    <title>Sanbercode</title>
+    <title>Forum Sans</title>
 
     <!-- Custom fonts for this template-->
     <link href="{{ asset('/sbadmin2/vendor/fontawesome-free/css/all.min.css') }}"
@@ -44,19 +44,19 @@
             <hr class="sidebar-divider my-0">
 
             <!-- Nav Item - Dashboard -->
-            <li class="nav-item">
+            <li class="nav-item {{$dash_active ?? ''}}">
                 <a class="nav-link" href="{{ route('admin.dashboard.index') }}">
                     <i class="fas fa-pager"></i>
                     <span>Dashboard</span></a>
             </li>
 
-            <li class="nav-item">
-                <a class="nav-link" href="{{ route('admin.dashboard.pertanyaan.index') }}">
+            <li class="nav-item {{$pertanyaan_active ?? ''}}">
+                <a class="nav-link " href="{{ route('admin.dashboard.pertanyaan.index') }}">
                     <i class="fas fa-comments"></i>
                     <span>Pertanyaan</span></a>
             </li>
 
-            <li class="nav-item">
+            <li class="nav-item {{$blog_active ?? ''}}">
                 <a class="nav-link" href="{{ route('admin.dashboard.blog.index') }}">
                     <i class="far fa-newspaper"></i>
                     <span>Blog</span></a>
@@ -64,7 +64,7 @@
 
             <hr class="sidebar-divider my-0">
 
-            <li class="nav-item">
+            <li class="nav-item {{$job_active ?? ''}}">
                 <a class="nav-link" href="{{ route('admin.dashboard.job.index') }}">
                     <i class="fas fa-briefcase"></i>
                     <span>Portal Job</span></a>
@@ -73,7 +73,7 @@
             <hr class="sidebar-divider my-0">
 
             <!-- Nav Item - Dashboard -->
-            <li class="nav-item">
+            <li class="nav-item {{$tag_active ?? ''}}">
                 <a class="nav-link" href="{{ route('admin.dashboard.tag.index') }}">
                     <i class="fas fa-hashtag"></i>
                     <span>Tags</span></a>
@@ -81,7 +81,7 @@
 
             <hr class="sidebar-divider my-0">
 
-            <li class="nav-item">
+            <li class="nav-item {{$user_active ?? ''}}">
                 <a class="nav-link" href="{{ route('admin.dashboard.user.index') }}">
                     <i class="fas fa-users"></i>
                     <span>Users</span></a>
@@ -89,7 +89,7 @@
 
             <hr class="sidebar-divider my-0">
 
-            <li class="nav-item">
+            <li class="nav-item {{$company_active ?? ''}}">
                 <a class="nav-link" href="{{ route('admin.dashboard.company.index') }}">
                     <i class="fas fa-building"></i>
                     <span>Company</span></a>
@@ -176,18 +176,13 @@
 
     </div>
     <!-- End of Page Wrapper -->
-
-    <!-- Scroll to Top Button-->
-    <a class="scroll-to-top rounded" href="#page-top">
-        <i class="fas fa-angle-up"></i>
-    </a>
+</body>
 
     <!-- Bootstrap core JavaScript-->
     <script src="{{ asset('sbadmin2/vendor/jquery/jquery.js') }}"></script>
     <script src="{{ asset('sbadmin2/vendor/bootstrap/js/bootstrap.bundle.min.js') }}"></script>
     <script src="{{ asset('js/app.js') }}"></script>
     <!-- script tambahan sweet alert, bukan dari bawaan sb-admin-2 -->
-    @stack('script')
-</body>
+    @stack('scripts')
 
 </html>

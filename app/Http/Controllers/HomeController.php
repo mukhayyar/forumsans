@@ -45,7 +45,16 @@ class HomeController extends Controller
     public function tag(Request $request)
     {
         $tags = Tag::all();
-        return view('tag',compact('tags'));
+        return view('tag/tag',compact('tags'));
+    }
+
+    public function detail_tag(Request $request, $tag)
+    {
+        $cari = $request->input('cari');
+        $tags = Tag::where('title',$tag)->with(['pertanyaan' => function($query) use ($cari){
+            $query->where('judul','like','%'.$cari.'%');
+        }])->first();
+        return view('tag/detail_tag',compact('tags','tag'));
     }
 
     public function job(Request $request)

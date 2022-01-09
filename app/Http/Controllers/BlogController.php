@@ -65,7 +65,7 @@ class BlogController extends Controller
      */
     public function show(Post $post)
     {
-        //
+
     }
 
     /**
@@ -76,7 +76,7 @@ class BlogController extends Controller
      */
     public function edit(Post $post)
     {
-        //
+        return view('blog/edit',compact('post'));
     }
 
     /**
@@ -88,7 +88,28 @@ class BlogController extends Controller
      */
     public function update(Request $request, Post $post)
     {
-        //
+        $request->validate([
+            'thumbnail' => 'image',
+            'title' => 'required',
+            'content' => 'required',
+        ]);
+        if($request->hasFile('thumbnail'))
+        {
+            $image = $request->file('thumbnail');
+            $filename = time().$image->getClientOriginalName();
+            Storage::disk('local')->putFileAs('public/blog', $image, $filename);
+            $post->thumbnail = $filename;
+        }
+        $slug = strtolower($request->title);
+        $slug = str_replace(' ','-',$request->title);
+        $slug = time().'-'.$slug.'-'.auth()->user()->username;
+        $post->title = $request->title;
+        $post->content = $request->content;
+        $post->slug = $slug;
+        $post->user_id = auth()->user()->id;
+        $post->update();
+
+        return redirect()->route('blog.index');
     }
 
     /**

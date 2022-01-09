@@ -2,9 +2,11 @@
 
 namespace App\Http\Controllers\Admin;
 
-use App\Http\Controllers\Controller;
+use App\User;
+use DataTables;
 use App\Pertanyaan;
 use Illuminate\Http\Request;
+use App\Http\Controllers\Controller;
 
 class PertanyaanController extends Controller
 {
@@ -13,9 +15,21 @@ class PertanyaanController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(Request $request)
     {
-        //
+        if($request->ajax()) {
+            $data = User::first()->pertanyaan()->with('user');
+            return Datatables::of($data)
+                ->addIndexColumn()
+                ->addColumn('action', function($row){
+                    $btn = '<a href="javascript:void(0)" class="edit btn btn-primary btn-sm">View</a>';
+                    return $btn;
+                })
+                ->rawColumns(['action'])
+                ->make(true);
+        }
+        $pertanyaan_active = 'active';
+        return view('admin/pertanyaan/index',compact('pertanyaan_active'));
     }
 
     /**

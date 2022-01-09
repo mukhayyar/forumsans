@@ -15,7 +15,7 @@ class AddPertanyaanIdToJawaban extends Migration
     {
         Schema::table('jawaban', function (Blueprint $table) {
             $table->unsignedBigInteger('pertanyaan_id');
-            $table->foreign('pertanyaan_id')->references('id')->on('pertanyaan');
+            $table->foreign('pertanyaan_id')->references('id')->on('pertanyaan')->onDelete('cascade')->onUpdate('cascade');
         });
     }
 

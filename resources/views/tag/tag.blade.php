@@ -18,7 +18,7 @@
             <div class="col-sm-3">
                 <div class="card shadow">
                     <div class="card-body">
-                        <a href="/tag/{tag}"><span class="badge badge-pill badge-primary">{{ $tag->title }}</span></a>
+                        <a href="/tag/{{$tag->title}}"><span class="badge badge-pill badge-primary">{{ $tag->title }}</span></a>
                         <hr>
                         <p class="card-text">{{ $tag->pertanyaan->count() }} Pertanyaan</p>
                     </div>

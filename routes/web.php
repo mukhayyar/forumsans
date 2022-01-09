@@ -23,7 +23,7 @@ Route::get('/pertanyaan/{pertanyaan:slug}', 'HomeController@show_blog')->name('d
 Route::get('/blog','HomeController@blog')->name('blog.index');
 Route::get('/blog/{blog:slug}','HomeController@detail_blog')->name('blog.detail');
 Route::get('/job','HomeController@job')->name('job.index');
-Route::get('/tag/{tag}','HomeController@job')->name('tag.index');
+Route::get('/tag/{tag}','HomeController@detail_tag')->name('tag.index');
 
 Route::group(['middleware' => ['web','auth']], function(){
     // Pertanyaan
@@ -31,6 +31,9 @@ Route::group(['middleware' => ['web','auth']], function(){
         Route::get('/create/pertanyaan', function () {
             return view('pertanyaan/new_question');
         })->name('create.pertanyaan');
+        Route::get('/pertanyaan/{pertanyaan:slug}/edit','PertanyaanController@edit');
+        Route::put('/pertanyaan/{pertanyaan:slug}/edit','PertanyaanController@update');
+        Route::delete('/pertanyaan/{pertanyaan:slug}','PertanyaanController@destroy');
         Route::post('/pertanyaan/{pertanyaan}/jawaban_benar','PertanyaanController@yes');
         Route::post('/pertanyaan/{pertanyaan}/komentar', 'KomentarPertanyaanController@store');
         Route::post('/pertanyaan/{pertanyaan}/komentar/{jawaban}', 'KomentarJawabanController@store');
@@ -47,35 +50,35 @@ Route::group(['middleware' => ['web','auth']], function(){
         // Blog
         Route::get('/create/blog','BlogController@create')->name('blog.create');
         Route::post('/create/blog','BlogController@store')->name('blog.store');
+        Route::get('/blog/{post:slug}/edit','BlogController@edit')->name('blog.edit');
+        Route::put('/blog/{post:slug}/edit','BlogController@update')->name('blog.update');
         Route::delete('/delete/blog/{blog:slug}','BlogController@destroy')->name('blog.destroy');
-        // Portal Job
-        Route::get('/create/job','JobController@create');
     });
 
     Route::group(['middleware' => ['admin']], function(){
         Route::get('/admin/dashboard','Admin\DashboardController@index')->name('admin.dashboard.index');
-        Route::get('/admin/dashboard/pertanyaan','Admin\DashboardController@index')->name('admin.dashboard.pertanyaan.index');
-        Route::get('/admin/dashboard/pertanyaan/{pertanyaan}','Admin\DashboardController@index')->name('admin.dashboard.pertanyaan.detail');
-        Route::get('/admin/dashboard/blog','Admin\DashboardController@index')->name('admin.dashboard.blog.index');
-        Route::get('/admin/dashboard/blog/{blog}','Admin\DashboardController@index')->name('admin.dashboard.blog.detail');
-        Route::get('/admin/dashboard/job','Admin\DashboardController@index')->name('admin.dashboard.job.index');
-        Route::get('/admin/dashboard/job//{job}','Admin\DashboardController@index')->name('admin.dashboard.job.detail');
-        Route::get('/admin/dashboard/company','Admin\DashboardController@index')->name('admin.dashboard.company.index');
-        Route::get('/admin/dashboard/company/{company}','Admin\DashboardController@index')->name('admin.dashboard.company.detail');
-        Route::get('/admin/dashboard/tag','Admin\DashboardController@index')->name('admin.dashboard.tag.index');
-        Route::get('/admin/dashboard/tag/{tag}','Admin\DashboardController@index')->name('admin.dashboard.tag.detail');
-        Route::get('/admin/dashboard/user','Admin\DashboardController@index')->name('admin.dashboard.user.index');
-        Route::get('/admin/dashboard/user/{user}','Admin\DashboardController@index')->name('admin.dashboard.user.detail');
+        Route::get('/admin/dashboard/pertanyaan','Admin\PertanyaanController@index')->name('admin.dashboard.pertanyaan.index');
+        Route::get('/admin/dashboard/pertanyaan/{pertanyaan}','Admin\PertanyaanController@index')->name('admin.dashboard.pertanyaan.detail');
+        Route::get('/admin/dashboard/blog','Admin\BlogController@index')->name('admin.dashboard.blog.index');
+        Route::get('/admin/dashboard/blog/{blog}','Admin\BlogController@index')->name('admin.dashboard.blog.detail');
+        Route::get('/admin/dashboard/job','Admin\JobController@index')->name('admin.dashboard.job.index');
+        Route::get('/admin/dashboard/job/{job}','Admin\JobController@index')->name('admin.dashboard.job.detail');
+        Route::get('/admin/dashboard/company','Admin\CompanyController@index')->name('admin.dashboard.company.index');
+        Route::get('/admin/dashboard/company/{company}','Admin\CompanyController@index')->name('admin.dashboard.company.detail');
+        Route::get('/admin/dashboard/tag','Admin\TagController@index')->name('admin.dashboard.tag.index');
+        Route::get('/admin/dashboard/tag/{tag}','Admin\TagController@index')->name('admin.dashboard.tag.detail');
+        Route::get('/admin/dashboard/user','Admin\UserController@index')->name('admin.dashboard.user.index');
+        Route::get('/admin/dashboard/user/{user}','Admin\UserController@index')->name('admin.dashboard.user.detail');
     });
 
     Route::group(['middleware' => ['business']], function(){
-        Route::get('/business/dashboard','JobController@index')->name('business.dashboard.index');
-        Route::get('/business/job','JobController@index');
-        Route::get('/business/job/create','JobController@index');
-        Route::post('/business/job/create','JobController@create');
-        Route::get('/business/job/{job}','JobController@edit');
-        Route::put('/business/job/{job}','JobController@update');
-        Route::delete('/business/job','JobController@destroy');
+        Route::get('/business/dashboard','Business\DashboardController@index')->name('business.dashboard.index');
+        Route::get('/business/job','Business\JobController@index');
+        Route::get('/business/job/create','Business\JobController@index');
+        Route::post('/business/job/create','Business\JobController@create');
+        Route::get('/business/job/{job}','Business\JobController@edit');
+        Route::put('/business/job/{job}','Business\JobController@update');
+        Route::delete('/business/job','Business\JobController@destroy');
     });
 });
 

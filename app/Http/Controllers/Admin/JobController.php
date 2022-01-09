@@ -14,7 +14,8 @@ class JobController extends Controller
      */
     public function index()
     {
-        //
+        $job_active = 'active';
+        return view('admin/job/index',compact('job_active'));
     }
 
     /**

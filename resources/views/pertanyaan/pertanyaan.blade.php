@@ -28,7 +28,7 @@
                         <h6 class="card-subtitle mb-2 text-muted">{{ $tanya->user->username }} |
                             <small>{{ $tanya->created_at }}</small></h6>
                         <hr>
-                        <p class="card-text">{!!$tanya->isi!!}</p>
+                        <p class="card-text">{!! \Illuminate\Support\Str::markdown($tanya->isi) !!}</p>
                         @foreach($tanya->tags as $tag)
                             <a href="/tag/{tag}"><span class="badge badge-pill badge-primary">
                                 {{ $tag->title }}</span></a>
@@ -45,7 +45,7 @@
             <div class="card-body">
                 <p class="card-text">Masih belum ada yang menanyakan masalahnya.
                     @if(Auth::check())
-                        <strong> Coba buat pertanyaan pertamamu <a href="{{ route('blog.create') }}">disini!</a></strong>
+                        <strong> Coba buat pertanyaan pertamamu <a href="{{ route('create.pertanyaan') }}">disini!</a></strong>
                     @endif
                 </p>
             </div>
