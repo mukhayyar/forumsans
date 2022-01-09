@@ -8,7 +8,7 @@
 <div class="container-fluid">
     <div class="card shadow" style="color: black">
         <div class="card-body">
-            @if(Auth::user()->id == $post->user->id)
+            @if(Auth::check() && Auth::user()->id == $post->user->id)
             <div class="row">
                 <div class="col-0 mr-2 ml-3">
                     <form method="POST" action="/delete/blog/{{ $post->slug }}">
@@ -36,6 +36,7 @@
 
 
     <div>
+        @if(Auth::check())
         <form action="/detail/{{ $post->id }}/jawaban" method="POST">
             @if ($errors->any())
                 <div class="alert alert-danger">
@@ -54,6 +55,7 @@
             </div>
             <button type="submit" class="btn btn-primary">Beri Komentar</button>
         </form>
+        @endif
     </div>
 </div>
 @endsection

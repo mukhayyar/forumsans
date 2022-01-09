@@ -8,7 +8,7 @@
 <div class="container-fluid">
     <div class="card shadow" style="color: black">
         <div class="card-body">
-            @if(Auth::user()->id == $pertanyaan->user->id)
+            @if(Auth::check() && Auth::user()->id == $pertanyaan->user->id)
             <div class="row">
                 <div class="col-0 mr-2 ml-3">
                     <form method="POST" action="/pertanyaan/{{ $pertanyaan->slug }}">
